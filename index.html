@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <!-- Social Meta -->
+  <meta property="og:title" content="STAR-Bench"/>
+  <meta property="og:url" content="https://example.com/star-bench"/>
+  <meta property="og:image" content="static/images/4d_logo.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:title" content="STAR-Bench">
+  <meta name="twitter:description" content="STAR-Bench">
+  <meta name="twitter:image" content="static/images/4d_logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="audio 4D intelligence, spatio-temporal reasoning, benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>STAR-Bench: Probing Deep Spatio-Temporal Reasoning as Audio 4D Intelligence</title>
+  <link rel="icon" type="image/x-icon" href="static/images/4d_logo.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- JS (keep order: libs -> plugins -> your init) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>  ？？？ -->
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+  <!-- ======= Site Header / Title ======= -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h1 class="title is-1 publication-title">
+          <img src="static/images/4d_logo.png" alt="STAR-Bench Logo" style="width: 1.8em; height: 1.6em; vertical-align: -0.2em; margin-right: 0.3em;">
+          STAR-Bench
+        </h1>
+        <h2 class="subtitle is-3 publication-subtitle">
+          Probing Deep Spatio-Temporal Reasoning<br>as Audio 4D Intelligence
+        </h2>
+
+        <p align="center">
+          <a href="https://scholar.google.com/citations?user=iELd-Q0AAAAJ"><strong>Zihan Liu<sup>*</sup></strong></a>
+          ·
+          <a href="https://scholar.google.com/citations?user=mXSpi2kAAAAJ&hl=zh-CN"><strong>Zhikang Niu<sup>*</sup></strong></a>
+          ·
+          <a href="https://github.com/akkkkkkkkki/"><strong>Qiuyang Xiao</strong></a>
+          ·
+          <a href="https://scholar.google.com/citations?user=WYwBrzAAAAAJ&hl=en"><strong>Zhisheng Zheng</strong></a>
+          ·
+          <a href="https://github.com/yrqqqq404"><strong>Ruoqi Yuan</strong></a>
+          ·
+          <a href="https://yuhangzang.github.io/"><strong>Yuhang Zang<sup>&dagger;</sup></strong></a>
+          </br>
+          <a href="https://scholar.google.com/citations?user=sJkqsqkAAAAJ"><strong>Yuhang Cao</strong></a>
+          ·
+          <a href="https://lightdxy.github.io/"><strong>Xiaoyi Dong</strong></a>
+          ·
+          <a href="https://scholar.google.com/citations?user=P4yNnSkAAAAJ&hl=zh-TW"><strong>Jianze Liang</strong></a>
+          ·
+          <a href="https://scholar.google.com/citations?user=d6u01FkAAAAJ&hl=en"><strong>Xie Chen</strong></a>
+          ·
+          <a href="https://scholar.google.com/citations?user=QVHvhM4AAAAJ&hl=en"><strong>Leilei Sun</strong></a>
+          ·
+          <a href="http://dahua.site/"><strong>Dahua Lin</strong></a>
+          ·
+          <a href="https://myownskyw7.github.io/"><strong>Jiaqi Wang<sup>&dagger;</sup></strong></a>
+        </p>
+        <p align="center" style="font-size: 1em; margin-top: em"> <sup>*</sup>  Equal Contribution. <sup>&dagger;</sup>Corresponding authors. </p>
+        
+
+        <!-- <p align="center" style="font-size: 1.2em; margin-top: 0.5em">
+          📖<a href="">arXiv</a> |
+          <i class="fab fa-github"></i><a href="">Code</a>| 
+          🤗<a href="https://huggingface.co/datasets/">Dataset</a>|
+          <i class="fas fa-trophy"></i><a href="#leaderboard">Leaderboard</a>
+        </p>  -->
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+                <!-- Arxiv PDF link -->
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/xxxx" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>arXiv</span>
+              </a>
+            </span>
+
+
+            <!-- Github link -->
+            <span class="link-block">
+              <a href="https://github.com/Sakshi113/mmau/tree/main" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+              </a>
+            </span>
+
+            <!-- Github link -->
+            <span class="link-block">
+              <a href="https://github.com/Sakshi113/mmau/tree/main" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span>🤗 Dataset</span>
+              </a>
+            </span>
+
+            <!-- Leaderboard -->
+            <span class="link-block">
+              <a href="#leaderboard" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                <span>Leaderboard</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <!-- ======= Table of Contents (compact chips, centered & wider) ======= -->
+  <nav class="toc box p-3" >
+    <h2 id="tablecontents" class="title is-6 mb-2">Table of Contents</h2>
+    <ul class="toc-root">
+      <li><a href="#introduction" class="button is-white is-rounded"><strong>Introduction</strong></a></li>
+
+      <li class="toc-group">
+        <details open>
+          <summary>Data Examples</summary>
+          <ul class="sublist">
+            <li>
+              <a href="#exp-perception" class="button is-white is-rounded is-small">Foundational Acoustic Perception</a>
+              <ul class="sublist">
+                <li><a href="#exp-range" class="button is-white is-rounded is-small">Absolute Perception Range</a></li>
+                <li><a href="#exp-relative" class="button is-white is-rounded is-small">Relative Perception</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#exp-holistic" class="button is-white is-rounded is-small">Holistic Spatio-Temporal Reasoning</a>
+              <ul class="sublist">
+                <li><a href="#exp-temporal" class="button is-white is-rounded is-small">Temporal Reasoning</a></li>
+                <li><a href="#exp-spatial" class="button is-white is-rounded is-small">Spatial Reasoning</a></li>
+              </ul>
+            </li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="toc-group">
+        <details open>
+          <summary>Evaluation Results</summary>
+          <ul class="sublist">
+            <li><a href="#leaderboard" class="button is-white is-rounded is-small">Leaderboard</a></li>
+            <li><a href="#analysis" class="button is-white is-rounded is-small">Error Analysis</a></li>
+            <li><a href="#insights" class="button is-white is-rounded is-small">Insights</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li><a href="#citation" class="button is-white is-rounded"><strong>Citation</strong></a></li>
+    </ul>
+  </nav>
+ 
+
+  <!-- ======= Introduction ======= -->
+  <section class="hero is-light is-small" id="introduction">
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-2 ">Introduction</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="content">
+        <p>
+          We formalize <strong>audio 4D intelligence</strong> that is defined as reasoning over sound dynamics in time and 3D space, and introduce a <strong>STAR-Bench</strong> to measure it. STAR-Bench combines a <strong>Foundational Acoustic Perception</strong>setting (six attributes under absolute and relative regimes) with a <strong>Holistic Spatio-Temporal Reasoning</strong> setting that includes segment reordering for continuous and discrete processes and spatial tasks spanning static localization, multi-source relations, and dynamic trajectories.Unlike prior benchmarks where caption-only answering reduces accuracy slightly, STAR-Bench induces far larger drops (-31.5\% temporal, -35.2\% spatial), evidencing its focus on <strong>linguistically hard-to-describe cues</strong>. Evaluating 19 models reveals substantial gaps to humans and a capability hierarchy. Our STAR-Bench provides critical insights and a clear path forward for developing future models with a more robust understanding of the physical world. 
+        </p>
+        <!-- Benchmark examples are illustrated below.          </p>
+        </p>
+        <p class="has-text-centered">
+          <img src="static/images/bench_examples.png" alt="STAR-Bench Examples" style="max-width: 100%;">
+        </p> -->
+        <p>
+          A comparative overview of our benchmark against other representative audio benchmarks is shown below.
+        </p>
+        <p class="has-text-centered">
+          <img src="static/images/bench_compare.png" alt="Comparison among Benchmarks" style="max-width: 100%;">
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Data Examples ======= -->
+  <section class="hero is-light is-small" id="examples">
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-2">Data Examples</h1>
+       <p class="subtitle is-5 mt-3">
+      🎧 Please wear headphones and listen carefully to the audio examples below in a quiet environment. 🔊✨
+    </p>
+    </div>
+  </section>
+
+  <!-- === Foundational Acoustic Perception === -->
+  <div class="container shadow p-5 mb-5 bg-white rounded">
+    <h2 class="title is-3" id="exp-perception">Foundational Acoustic Perception</h2>
+    <p class="has-text-grey is-size-6" style="margin-top: 4px;">
+      <em>Note:</em> In the Options column, <strong>the bolded choice</strong> indicates the correct answer corresponding to each question example.
+    </p>
+
+    <!-- Single carousel with 2 table slides -->
+    <div id="fap-carousel" class="carousel results-carousel">
+    
+      <!-- Slide 1 -->
+      <div class="item" id="exp-range">
+        <div class="box">
+          <h3 class="title is-4 has-text-centered">Absolute Perception Range</h3>
+          <div class="table-container">
+            <table class="table is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered" style="width: 10%;">Attribute</th>
+                  <th class="has-text-centered" style="width: 20%;">Range</th>
+                  <th class="has-text-centered" style="width: 35%;">Question</th>
+                  <th class="has-text-centered" style="width: 35%;">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- rows placeholder -->
+                <tr>
+                  <td class="has-text-centered">Pitch, Loudness</td>
+                  <td class="has-text-centered">125 Hz - 8000 Hz,</br> -10 dB - 110 dB</td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/range/750Hz_60dBHL_2.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    The audio you just heard is divided into two halves. Does a sound appear in the first half, the second half, or is it not present at all?
+                  </td>
+                  <td class="has-text-left">(A) The first half </br> <strong>(B) The second half</strong> </br> (C) It is not present at all </br> (D) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Azimuth</td>
+                  <td class="has-text-centered">0° - 360° </td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/range/alarm_r1m_az330_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    Given that 0° is directly in front and the angle increases clockwise, which azimuth range is the sound most likely coming from?
+                  </td>
+                  <td class="has-text-left">(A) Front-Right (0°-90°) </br> (B) Back-Right (90°-180°)</br> (C) Back-Left (180°-270°)</br> <strong>(D) Front-Left (270°-360°)</strong></br> (E) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Elevation</td>
+                  <td class="has-text-centered">-90° - 90° </td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/range/applause_r1m_az0_el-75.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    Where does the sound seem to be coming from in terms of elevation, relative to ear level?
+                  </td>
+                  <td class="has-text-left">(A) Above ear level </br>  <strong>(B) Below ear level</strong></br> (C) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Distance</td>
+                  <td class="has-text-centered">0 meter - 10 meters</td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/range/telephones_r1m_az0_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    How far away does the sound seem to be?
+                  </td>
+                  <td class="has-text-left"><strong>(A) Near (within about 0-3 meters)</strong></br> (B) Medium (around 3-8 meters)</br> (C) Far (more than 8 meters)</br> (D) Unable to determine</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="item" id="exp-relative">
+        <div class="box">
+          <h3 class="title is-4 has-text-centered">Relative Discrimination Sensitivity</h3>
+          <div class="table-container">
+            <table class="table is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th class="has-text-centered" style="width: 10%;">Attribute</th>
+                  <th class="has-text-centered" style="width: 10%;">Level</th>
+                  <th class="has-text-centered" style="width: 54%;">Question</th>
+                  <th class="has-text-centered" style="width: 26%;">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- rows placeholder -->
+                <tr>
+                  <td class="has-text-centered">Pitch</td>
+                  <td class="has-text-centered">0, 50, 100, 200, 400, 1200 (cents)</td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/sensitivity/level5_988Hz_1245Hz_1.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    Which sound has a higher pitch: the first sound, the second sound, or are they the same?
+                  </td>
+                  <td class="has-text-left"><strong>(A) The first sound has a higher pitch</strong></br> (B) The second sound has a higher pitch</br> (C) Both sounds are the same</br> (D) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Loudness</td>
+                  <td class="has-text-centered">0, 4, 8, 12, 24, 48 (dB)</td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/sensitivity/level5_49dBHL_73dBHL_2.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    Which sound is louder: the first sound, the second sound, or are they the same?
+                  </td>
+                  <td class="has-text-left">(A) The first sound is louder</br> <strong>(B) The second sound is louder</strong></br> (C) Both sounds are the same</br> (D) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Duration</td>
+                  <td class="has-text-centered">0, 20, 50, 100, 150, 200 (%)</td>
+                  <td class="has-text-centered">
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.8)">
+                      <source src="static/audios/perception/sensitivity/level5_1700ms_4250ms_1.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </br>
+                    Which sound is longer: the first sound, the second sound, or are they the same?
+                  </td>
+                  <td class="has-text-left"><strong>(A) The first sound is longer</strong></br> (B) The second sound is longer</br> (C) Both sounds are the same</br> (D) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Azimuth</td>
+                  <td class="has-text-centered">30, 60, 90, 120, 150, 180 (°) </td>
+                  <td class="has-text-centered">
+                    Audio 1:<audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/telephones_r2m_az270_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Audio 2:<audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/telephones_r2m_az60_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Are Audio 1 and Audio 2 at the same azimuth? (Consider differences of less than 45° as the same.)
+                  </td>
+                  <td class="has-text-left">(A) Same</br> <strong>(B) Different</strong></br> (C) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Elevation</td>
+                  <td class="has-text-centered">15-30, 60-75, 90, 120, 150 (°) </td>
+                  <td class="has-text-centered">
+                    Audio 1:
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/applause_r1m_az0_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Audio 2:
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/applause_r1m_az0_el15.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Which audio has the higher elevation angle? (Consider differences of less than 45° as the same.)
+                  </td>
+                  <td class="has-text-left">(A) Audio 1 is higher</br> (B) Audio 2 is higher</br> <strong>(C) Both are at the same elevation</strong></br> (D) Unable to determine</td>
+                </tr>
+                <tr>
+                  <td class="has-text-centered">Distance</td>
+                  <td class="has-text-centered">1-2, 4-5, 6-7, 8-9 (meters) </td>
+                  <td class="has-text-centered">
+                    Audio 1:
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/alarm_r10m_az0_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Audio 2:
+                    <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
+                      <source src="static/audios/perception/sensitivity/alarm_r1m_az0_el0.wav" type="audio/wav">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </br>
+                    Which audio is farther away? (Consider differences of less than 3 meters as the same.)
+                  </td>
+                  <td class="has-text-left"><strong>(A) Audio 1 is farther away</strong></br> (B) Audio 2 is farther away</br> (C) Both audios are the same</br> (D) Unable to determine</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      
+    </div> <!-- /#fap-carousel -->
+  </div>
+
+  <!-- === Holistic Spatio-Temporal Reasoning === -->
+  <div class="container shadow p-5 mb-5 bg-white rounded">
+    <h2 class="title is-3" id ="exp-holistic">Holistic Spatio-Temporal Reasoning</h2>
+
+    <!-- Temporal (own carousel, ~5 slides) -->
+    <!-- carousel-animated carousel-animate-slide -->
+    <h3 class="title is-4" id="exp-temporal">Temporal Reasoning</h3>
+    <div id="temporal-carousel" class="carousel results-carousel">  
+      <!-- 第一组内容 -->
+      <div class='content has-text-centered'>
+        <h4 class="title is-5 has-text-centered">
+          Continuous Processes — <em>Object Spatial Motion</em>
+        </h4>
+        <div class="columns">
+
+          <!-- 第一列：图片 1，竖向居中 -->
+          <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="static/images/bench_exps/temporal_exp1.png" alt="temporal_exp1_image" style="width: 65%;  padding: 10px; margin-bottom: 4px;">
+            <p style="margin-top: 0; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp1/whole_clips.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+            </p>
+          </div>
+          <!-- 第二列：图片 2 + 音频 -->
+          <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="margin-bottom: 0px;">
+              <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+            </div>
+            <!-- 音频容器 -->
+            <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;"> 
+              <div>
+                <p>clip 1: 
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp1/seg_3.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 2:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp1/seg_2.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 3:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp1/seg_1.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 第二组内容 -->
+      <div class='content has-text-centered'>
+        <h4 class="title is-5 has-text-centered">
+          Continuous Processes — <em>In-Situ State Evolution</em>
+        </h4>
+        <div class="columns">
+
+          <!-- 第一列：图片 1，竖向居中 -->
+          <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="static/images/bench_exps/temporal_exp2.png" alt="temporal_exp1_image" style="width: 65%;  padding: 10px; margin-bottom: 4px;">
+            <p style="margin-top: 0; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp2/whole_clips.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+            </p>
+          </div>
+          <!-- 第二列：图片 2 + 音频 -->
+          <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="margin-bottom: 0px;">
+              <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+            </div>
+            <!-- 音频容器 -->
+            <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+              <div>
+                <p>clip 1: 
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp2/seg_2.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 2:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp2/seg_3.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 3:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp2/seg_1.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 第三组内容 -->
+      <div class='content has-text-centered'>
+        <h4 class="title is-5 has-text-centered">
+          Discrete Event Sequences — <em>Tool & Appliance Operation</em>
+        </h4>
+        <div class="columns">
+
+          <!-- 第一列：图片 1，竖向居中 -->
+          <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="static/images/bench_exps/temporal_exp3.png" alt="temporal_exp1_image" style="width: 65%;  padding: 10px; margin-bottom: 4px;">
+            <p style="margin-top: 0; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp3/whole_clips.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+            </p>
+          </div>
+          <!-- 第二列：图片 2 + 音频 -->
+          <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="margin-bottom: 0px;">
+              <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+            </div>
+            <!-- 音频容器 -->
+            <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+              <div>
+                <p>clip 1: 
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp3/seg_2.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 2:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp3/seg_1.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 3:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp3/seg_3.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 第四组内容 -->
+      <div class='content has-text-centered'>
+        <h4 class="title is-5 has-text-centered">
+          Discrete Event Sequences — <em>Daily Scene Scripts</em>
+        </h4>
+        <div class="columns">
+
+          <!-- 第一列：图片 1，竖向居中 -->
+          <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="static/images/bench_exps/temporal_exp4.png" alt="temporal_exp1_image" style="width: 65%;  padding: 10px; margin-bottom: 4px;">
+            <p style="margin-top: 0; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp4/whole_clips.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+            </p>
+          </div>
+          <!-- 第二列：图片 2 + 音频 -->
+          <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="margin-bottom: 0px;">
+              <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+            </div>
+            <!-- 音频容器 -->
+            <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+              <div>
+                <p>clip 1: 
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp4/seg_1.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 2:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp4/seg_3.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 3:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp4/seg_2.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 第五组内容 -->
+      <div class='content has-text-centered'>
+        <h4 class="title is-5 has-text-centered">
+          Discrete Event Sequences — <em>Event-Triggered Consequences</em>
+        </h4>
+        <div class="columns">
+
+          <!-- 第一列：图片 1，竖向居中 -->
+          <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="static/images/bench_exps/temporal_exp5.png" alt="temporal_exp1_image" style="width: 65%;  padding: 10px; margin-bottom: 4px;">
+            <p style="margin-top: 0; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp5/whole_clips.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+            </p>
+          </div>
+          <!-- 第二列：图片 2 + 音频 -->
+          <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="margin-bottom: 0px;">
+              <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+            </div>
+            <!-- 音频容器 -->
+            <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+              <div>
+                <p>clip 1: 
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp5/seg_1.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 2:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp5/seg_2.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+                <p>clip 3:
+                <audio controls style="transform: scale(0.8);">
+                  <source src="static/audios/holistic/temporal/exp5/seg_3.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Spatial (own carousel, ~3 slides) -->
+    <h3 class="title is-4" id="exp-spatial">Spatial Reasoning</h3>
+    <div id="spatial-carousel" class="carousel results-carousel">
+      <!-- 第一组内容 -->
+      <div class='content has-text-centered'>
+        <div class="columns">
+
+          <!-- 左列：图片 -->
+          <div class="column is-half has-text-centered"
+              style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <img src="static/images/bench_exps/spatial_exp1.png"
+                alt="spatial_exp1_image"
+                style="width:70%; padding:10px; margin-bottom:6px;">
+          </div>
+
+          <!-- 右列：音频 -->
+          <div class="column is-half"
+              style="display:flex; flex-direction:column; justify-content:center;">
+
+            <!-- Native input -->
+            <div style="margin-bottom:12px;">
+              <p style="text-align:left; margin:0 0 4px 0;">
+                <strong>Native audio input:</strong>
+              </p>
+              <audio controls style="transform:scale(0.8);">
+                <source src="static/audios/holistic/spatial/exp1/exp1.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <!-- Channel-wise input -->
+            <div style="margin-bottom:40px;">
+              <p style="text-align:left; margin:8px 0 4px 0;">
+                <strong>Channel-wise audio input:</strong>
+              </p>
+              <p style="text-align:left; margin:0 0 4px 0;">
+                Audio 1:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp1/exp1_left.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0 0 6px 0;">
+                Audio 2:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp1/exp1_right.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0;">
+                You are given a binaural recording: Audio 1 is the left-ear channel and Audio 2 is the right-ear channel.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- 第二组内容 -->
+      <div class='content has-text-centered'>
+        <div class="columns">
+
+          <!-- 左列：图片 -->
+          <div class="column is-half has-text-centered"
+              style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <img src="static/images/bench_exps/spatial_exp2.png"
+                alt="spatial_exp1_image"
+                style="width:70%; padding:10px; margin-bottom:6px;">
+          </div>
+
+          <!-- 右列：音频 -->
+          <div class="column is-half"
+              style="display:flex; flex-direction:column; justify-content:center;">
+
+            <!-- Native input -->
+            <div style="margin-bottom:12px;">
+              <p style="text-align:left; margin:0 0 4px 0;">
+                <strong>Native audio input:</strong>
+              </p>
+              <audio controls style="transform:scale(0.8);">
+                <source src="static/audios/holistic/spatial/exp2/exp2.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <!-- Channel-wise input -->
+            <div style="margin-bottom:40px;">
+              <p style="text-align:left; margin:8px 0 4px 0;">
+                <strong>Channel-wise audio input:</strong>
+              </p>
+              <p style="text-align:left; margin:0 0 4px 0;">
+                Audio 1:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp2/exp2_left.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0 0 6px 0;">
+                Audio 2:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp2/exp2_right.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0;">
+                You are given a binaural recording: Audio 1 is the left-ear channel and Audio 2 is the right-ear channel.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- 第三组内容 -->
+      <div class='content has-text-centered'>
+        <div class="columns">
+
+          <!-- 左列：图片 -->
+          <div class="column is-half has-text-centered"
+              style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <img src="static/images/bench_exps/spatial_exp3.png"
+                alt="spatial_exp1_image"
+                style="width:70%; padding:10px; margin-bottom:6px;">
+          </div>
+
+          <!-- 右列：音频 -->
+          <div class="column is-half"
+              style="display:flex; flex-direction:column; justify-content:center;">
+
+            <!-- Native input -->
+            <div style="margin-bottom:12px;">
+              <p style="text-align:left; margin:0 0 4px 0;">
+                <strong>Native audio input:</strong>
+              </p>
+              <audio controls style="transform:scale(0.8);">
+                <source src="static/audios/holistic/spatial/exp3/exp3.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <!-- Channel-wise input -->
+            <div style="margin-bottom:40px;">
+              <p style="text-align:left; margin:8px 0 4px 0;">
+                <strong>Channel-wise audio input:</strong>
+              </p>
+              <p style="text-align:left; margin:0 0 4px 0;">
+                Audio 1:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp3/exp3_left.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0 0 6px 0;">
+                Audio 2:
+                <audio controls style="transform:scale(0.8);">
+                  <source src="static/audios/holistic/spatial/exp3/exp3_right.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </p>
+              <p style="text-align:left; margin:0;">
+                You are given a binaural recording: Audio 1 is the left-ear channel and Audio 2 is the right-ear channel.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Evaluation Results (Leaderboard) ======= -->
+  <section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-2">Evaluation Results</h1>
+    </div>
+  </section>
+
+  <section class="section" id="leaderboard">
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered">
+        <h2 class="title is-3">Leaderboard</h2>
+        <div class="model-labels-container" style="margin-bottom: 0.75rem;">
+          <span class="tag is-light">Open-Source</span>
+          <span class="tag is-light">Open-Access</span>
+          <span class="tag is-light">Proprietary</span>
+          <span class="tag is-light">Fine-tuned</span>
+        </div>
+
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped" style="border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th colspan="4" class="has-text-centered">Sound</th>
+                <th colspan="2" class="has-text-centered">Music</th>
+                <th class="has-text-centered">Speech</th>
+                <th colspan="3" class="has-text-centered">Avg</th>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Test-mini</th>
+                <th>Test</th>
+                <th>Test-mini</th>
+                <th>Test</th>
+                <th>Test-mini</th>
+                <th>Test</th>
+                <th>Test-mini</th>
+                <th>Test</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- leaderboard rows placeholder -->
+            </tbody>
+          </table>
+        </div>
+
+        <p class="is-size-7">
+          [Description of parsing & evaluation...]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Error Analysis ======= -->
+  <section class="section" id="analysis">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Error Analysis</h2>
+      <div class="content">
+        <p class="has-text-centered has-text-weight-semibold">Error distribution across temporal and spatial Tasks</p>
+        <p style="text-align: center;">
+          <img src="static/images/error_dist.png" alt="Error Distribution" width="100%">
+        </p>
+      </div>
+
+      <div class="columns is-vcentered">
+        <!-- 左列 -->
+        <div class="column">
+          <div class="content">
+            <p class="has-text-centered has-text-weight-semibold">
+              The sensitivity analysis in fine-grained perception
+            </p>
+            <p style="text-align: center;">
+              <img src="static/images/audiogram_curve.png" alt="audiogram_curve" width="95%">
+            </p>
+          </div>
+        </div>
+
+        <!-- 右列 -->
+        <div class="column">
+          <div class="content">
+            <p class="has-text-centered has-text-weight-semibold">
+              The ablation study on temporal reasoning
+            </p>
+            <p style="text-align: center;">
+              <img src="static/images/tmeporal_ablation.png" alt="temporal ablation" width="90%">
+            </p>
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="content">
+        <p class="has-text-centered title is-5">Error Examples</p>
+        <div id="temporal-carousel" class="carousel results-carousel">  
+          <!-- 第六组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_06.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case6/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case6/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case6/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case6/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 第一组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_01.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case1/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case1/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case1/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case1/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 第二组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_02.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case2/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case2/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case2/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case2/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 第三组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_03.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case3/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case3/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case3/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case3/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 第四组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_04.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case4/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case4/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case4/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case4/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 第五组内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/cases_05.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                <!-- 音频容器 -->
+                <div class="audio-container" style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; align-items: center; justify-items: center;">
+                  <div>
+                    <p><strong>Question:</strong> You are a specialized sound event ordering expert. Please listen to the following three audio clips labeled clip 1, clip 2, and clip 3, and determine the most natural chronological order in which these sounds would typically occur in the real world.</p>
+                    <p>clip 1: 
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case5/seg_1.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 2:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case5/seg_3.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                    <p>clip 3:
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case5/seg_2.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                    </p>
+                  </div>
+                  <p style="margin-top: 40px; margin-bottom: 20px;"><strong>UNCUT AUDIO: </strong>
+                    <audio controls style="transform: scale(0.8);">
+                      <source src="static/audios/error_cases/case5/whole_clips.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- spatial_case内容 -->
+          <div class='content has-text-centered'>
+            <div class="columns">
+              <!-- 第一列：图片 1，竖向居中 -->
+              <div class="column is-half has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="static/images/error_cases/spatial_case.png" alt="temporal_exp1_image" style="width: 100%;  padding: 10px; margin-bottom: 4px;">
+                
+              </div>
+              <!-- 第二列：图片 2 + 音频 -->
+              <div class="column is-half has-text-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                
+                
+                <!-- Native input -->
+                <div style="margin-bottom:12px;">
+                  <p style="text-align:left; margin:0 0 4px 0;">
+                    <strong>Native audio input:</strong>
+                  </p>
+                  <audio controls style="transform:scale(0.8);">
+                    <source src="static/audios/error_cases/spatial_case/native.wav" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+
+                <!-- Channel-wise input -->
+                <div style="margin-bottom:40px;">
+                  <p style="text-align:left; margin:8px 0 4px 0;">
+                    <strong>Channel-wise audio input:</strong>
+                  </p>
+                  <p style="text-align:left; margin:0 0 4px 0;">
+                    Audio 1:
+                    <audio controls style="transform:scale(0.8);">
+                      <source src="static/audios/error_cases/spatial_case/left.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                  <p style="text-align:left; margin:0 0 6px 0;">
+                    Audio 2:
+                    <audio controls style="transform:scale(0.8);">
+                      <source src="static/audios/error_cases/spatial_case/right.wav" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                  <p style="text-align:left; margin:0;">
+                    You are given a binaural recording: Audio 1 is the left-ear channel and Audio 2 is the right-ear channel.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          
+      </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="section" id="insights">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Insights</h2>
+      <ul>
+        <li>
+          🔥 <strong>A clear capability hierarchy between the two groups.</strong>
+          Closed-source models are bottlenecked by fine-grained perception, while open-source models lag across perception, knowledge, and reasoning.
+        </li>
+        <li>
+          🔥 <strong>Enhancing dense audio captioning.</strong>
+          Open-source models struggle to produce dense, fine-grained captions, which limits their perceptual sensitivity and ability to extract embedded knowledge. Bridging this gap is a crucial first step.
+        </li>
+        <li>
+          🔥 <strong>Improving multi-audio reasoning.</strong>
+          Open-source models lag significantly in comparing, integrating, and grounding information across multiple audio clips.
+        </li>
+        <li>
+          🔥 <strong>Moving beyond channel-averaged audio preprocessing.</strong>
+          The common practice of averaging multi-channel audio into a mono signal is a major bottleneck for spatial reasoning. Developing architectures that natively process multi-channel cues is essential for unlocking genuine spatial awareness.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <!-- <section class="section" id="error_exps">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Error Examples</h2>
+      <div id="temporal-carousel" class="carousel carousel-animated carousel-animate-slide">
+        <div class="item"><div class="box">[Temporal Slide 1]</div></div>
+        <div class="item"><div class="box">[Temporal Slide 2]</div></div>
+        <div class="item"><div class="box">[Temporal Slide 3]</div></div>
+        <div class="item"><div class="box">[Temporal Slide 4]</div></div>
+        <div class="item"><div class="box">[Temporal Slide 5]</div></div>
+      </div>
+    </div>
+  </section> -->
+
+
+  
+
+  <!-- ======= Citation ======= -->
+  <section class="section" id="citation">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3">Citation</h2>
+      <pre><code>
+
+      </code></pre>
+    </div>
+  </section>
+
+  <!-- ======= Footer =======
+  <footer class="footer">
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered">
+        <p class="is-size-7">© 2025 STAR-Bench Team</p>
+      </div>
+    </div>
+  </footer> -->
+
+  <!-- ======= Minimal Carousel Init =======
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.bulmaCarousel) {
+        console.error('bulmaCarousel not found. Check script includes.');
+        return;
+      }
+      // Foundational (2 slides)
+      bulmaCarousel.attach('#fap-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        navigation: true,
+        pagination: true,
+        loop: false,
+        autoplay: false
+      });
+      // Holistic - Temporal (5 slides)
+      bulmaCarousel.attach('#temporal-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        navigation: true,
+        pagination: true,
+        loop: false,
+        autoplay: false
+      });
+      // Holistic - Spatial (3 slides)
+      bulmaCarousel.attach('#spatial-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        navigation: true,
+        pagination: true,
+        loop: false,
+        autoplay: false
+      });
+    });
+  </script>
+</body>
+</html> -->

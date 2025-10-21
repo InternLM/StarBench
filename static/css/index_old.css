@@ -1,0 +1,328 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+.slider-pagination .slider-page {
+  background: #000000;
+}
+
+.eql-cntrb { 
+  font-size: smaller;
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+/* .human_expert {
+  background-color: rgba(180, 161, 108, 0.867) !important;
+}
+
+.open_source {
+  background-color: rgb(234, 219, 232) !important;
+}
+
+.proprietary {
+  background-color: rgba(161, 220, 224, 0.1) !important;
+} */
+
+.human_expert {
+  background-color: rgba(218, 191, 135, 0.3) !important; /* Light beige/golden */
+}
+
+.open_source {
+  background-color: rgba(118, 185, 0, 0.172) !important; /* Light teal */
+}
+
+.proprietary {
+  background-color: rgba(211, 211, 211, 0.172) !important; /* Light teal */
+}
+
+.open_access {
+  background-color: rgb(240, 229, 245) !important; /* Soft lavender */
+}
+
+.fine_tuned {
+  background-color: rgba(187, 235, 240, 0.3) !important; /* Light teal */
+}
+
+
+.leaderboard-label {
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.model-labels-container {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+
+/*details summary { cursor: pointer; }
+details summary::-webkit-details-marker { display: none; }
+details[open] summary span[aria-hidden="true"] {
+  transform: rotate(180deg);
+  transition: transform .15s;
+}
+details summary span[aria-hidden="true"] {
+  transition: transform .15s;
+}
+
+/* 容器更紧凑 */
+.toc { border: 1px solid #eee; border-radius: 12px; }
+.toc .title { font-weight: 700; }
+
+/* 根列表横向换行的“chips”风格 */
+.toc-root,
+.toc .sublist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .5rem;   /* 行间距更小 */
+  padding-left: 0;
+  margin: .25rem 0 0;
+  list-style: none;
+}
+
+/* 一级项与分组 */
+.toc-group { display: inline-flex; }
+
+/* summary 做成一个 chip，点击展开/收起 */
+.toc summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .28rem .6rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: .92rem;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.toc summary::after {
+  content: "▾";
+  transition: transform .12s ease;
+  font-size: .8em;
+  opacity: .8;
+}
+.toc details[open] summary::after { transform: rotate(180deg); }
+
+/* 二级/三级链接小而清晰 */
+.toc a.button {
+  height: auto;
+  line-height: 1.1;
+  padding: .28rem .6rem;
+  font-size: .92rem;
+  border: 1px solid #eee;
+}
+.toc a.button.is-small {
+  padding: .22rem .5rem;
+  font-size: .85rem;
+}
+
+/* 细节：去掉默认 marker、交互状态 */
+.toc summary::-webkit-details-marker { display: none; }
+.toc a.button:hover,
+.toc summary:hover { border-color: #ccc; }
+
+/* 桌面端可更“贴边”一点；移动端保持易点按 */
+@media (min-width: 1024px) {
+  .toc { padding: .75rem 1rem; }
+  .toc .title { margin-bottom: .25rem; }
+}
+
+/* 可选：作为侧边栏时固定在视口（放右栏或左栏都行） */
+/*
+@media (min-width: 1216px) {
+  .toc { position: sticky; top: 5rem; max-height: calc(100vh - 6rem); overflow:auto; }
+} */ 
+
+/* 让每级 <ul> 都横向排列、自动换行 */
+.toc-inline ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .5rem;         /* 行/列间距 */
+  align-content: flex-start; /* 多行对齐更紧凑 */
+}
+
+/* 让下一级列表与上一级之间留点呼吸感 */
+.toc-inline ul ul {
+  margin-top: .35rem;
+}
+
+/* 让所有按钮（h1/h2/h3）像 chips，一行排，内部可自动换行 */
+.toc-inline a.button {
+  display: inline-flex;      /* 保持按钮风格 */
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  height: auto;              /* 允许多行高度 */
+  padding: .32rem .6rem;
+  border: 1px solid #eee;    /* 更清晰的分隔 */
+  border-radius: 999px;      /* 胶囊形状 */
+  white-space: normal;       /* 允许内部换行（关键！） */
+  text-align: center;
+  word-break: break-word;    /* 长词/URL 也能换行 */
+  flex: 0 1 clamp(140px, 24vw, 280px);
+  /* ↑ 每个 chip 的自适应宽度：
+       最小 140px，理想是视口宽度的 24%，最大 280px。 */
+}
+
+/* 小号按钮更紧凑 */
+.toc-inline a.button.is-small {
+  padding: .24rem .5rem;
+  font-size: .88rem;
+}
+
+/* 视觉层级（可选）：顶层稍微加粗，次级略微变小 */
+.toc-inline > ul > li > a.button { 
+  font-weight: 600;
+}
+.toc-inline ul ul > li > a.button {
+  font-weight: 550;
+  font-size: .95rem;
+}
+
+/* 悬停细节 */
+.toc-inline a.button:hover {
+  border-color: #dcdcdc;
+  background: #fafafa;
+}
+
+/* 大屏时再压缩一点间距（更紧凑） */
+@media (min-width: 1024px) {
+  .toc-inline a.button {
+    padding: .28rem .55rem;
+    flex-basis: clamp(140px, 20vw, 260px);
+  }
+}

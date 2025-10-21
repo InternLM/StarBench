@@ -1,0 +1,276 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+/* .results-carousel .item {
+  margin: 20px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 0;
+} */
+
+.results-carousel video {
+  margin: 0;
+}
+
+.slider-pagination .slider-page {
+  background: #000000;
+}
+
+.eql-cntrb { 
+  font-size: smaller;
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+/* .human_expert {
+  background-color: rgba(180, 161, 108, 0.867) !important;
+}
+
+.open_source {
+  background-color: rgb(234, 219, 232) !important;
+}
+
+.proprietary {
+  background-color: rgba(161, 220, 224, 0.1) !important;
+} */
+
+.human_expert {
+  background-color: rgba(218, 191, 135, 0.3) !important; /* Light beige/golden */
+}
+
+.open_source {
+  background-color: rgba(118, 185, 0, 0.172) !important; /* Light teal */
+}
+
+.proprietary {
+  background-color: rgba(211, 211, 211, 0.172) !important; /* Light teal */
+}
+
+.open_access {
+  background-color: rgb(240, 229, 245) !important; /* Soft lavender */
+}
+
+.fine_tuned {
+  background-color: rgba(187, 235, 240, 0.3) !important; /* Light teal */
+}
+
+
+.leaderboard-label {
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.model-labels-container {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+
+/* 让表格行间距更紧凑 */
+table.table td,
+table.table th {
+  padding: 4px 8px !important;  /* 调整单元格内边距 */
+  line-height: 1.2;             /* 缩小文字行高 */
+}
+
+/*TOC*/
+
+/* 整体容器：可居中、可更宽 */
+.toc { max-width: 1280px; margin: 0 auto; }
+
+/* 每一层：横向一行，绝不换到下一行；不足则横向滚动 */
+.toc-root,
+.toc .sublist {
+  display: flex;
+  flex-wrap: nowrap;         /* 关键：一行，不换行 */
+  gap: .6rem .8rem;
+  list-style: none;
+  padding-left: 0;
+  margin: .5rem 0 0;
+  overflow-x: auto;          /* 视口窄时允许横向滚动 */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* summary 也作为“标签”，固定/半固定宽度，内部可换行 */
+.toc details > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;              /* 允许多行高度 */
+  line-height: 1.25;
+  padding: .32rem .7rem;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 600;
+  text-align: center;
+
+  white-space: normal;       /* 关键：内部文本允许换行 */
+  overflow-wrap: anywhere;   /* 空格/长词都可折行 */
+  word-break: normal;
+  hyphens: auto;
+
+  flex: 0 0 220px;           /* 宽度策略：固定列宽（可按需调整） */
+}
+
+/* 链接标签：同样内部可换行；按层给不同宽度 */
+.toc a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  line-height: 1.25;
+  padding: .3rem .7rem;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  text-align: center;
+
+  white-space: normal;       /* 允许内部换行 */
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+
+/* 1 级（顶层）宽度 */
+.toc-root > li > a.button,
+.toc .toc-group > details > summary {
+  flex: 0 0 220px;           /* 你可以改为 200~260 之间 */
+}
+
+/* 2 级宽度 */
+.toc .toc-group > details > .sublist > li > a.button {
+  flex: 0 0 260px;           /* 二级可略宽一些 */
+}
+
+/* 3 级宽度 */
+.toc .sublist .sublist a.button {
+  flex: 0 0 240px;
+}
+
+/* 小号按钮微调 */
+.toc a.button.is-small { padding: .24rem .55rem; font-size: .9rem; }
+
+/* 去掉 summary 默认小三角（保留 open 行为即可） */
+.toc summary::-webkit-details-marker { display: none; }
