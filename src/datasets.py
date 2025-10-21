@@ -1,0 +1,1 @@
+#参考/mnt/shared-storage-user/liuzihan/VLMEvalKit/vlmeval/dataset/image_mcq.py 
