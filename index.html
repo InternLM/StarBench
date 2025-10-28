@@ -94,7 +94,7 @@
           <div class="publication-links">
                 <!-- Arxiv PDF link -->
             <span class="link-block">
-              <a href="https://arxiv.org/pdf/xxxx" target="_blank"
+              <a href="" target="_blank"
               class="external-link button is-normal is-rounded is-dark">
               <span class="icon">
                 <i class="fas fa-file-pdf"></i>
@@ -106,7 +106,7 @@
 
             <!-- Github link -->
             <span class="link-block">
-              <a href="https://github.com/Sakshi113/mmau/tree/main" target="_blank"
+              <a href="https://github.com/InternLM/StarBench" target="_blank"
               class="external-link button is-normal is-rounded is-dark">
               <span class="icon">
                 <i class="fab fa-github"></i>
@@ -115,23 +115,23 @@
               </a>
             </span>
 
-            <!-- Github link -->
+            <!-- dataset link -->
             <span class="link-block">
-              <a href="https://github.com/Sakshi113/mmau/tree/main" target="_blank"
+              <a href="https://huggingface.co/datasets/internlm/STAR-Bench" target="_blank"
               class="external-link button is-normal is-rounded is-dark">
               <span>🤗 Dataset</span>
               </a>
             </span>
 
             <!-- Leaderboard -->
-            <span class="link-block">
+            <!-- <span class="link-block">
               <a href="#leaderboard" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon">
                       <p style="font-size:18px">🏆</p>
                   </span>
                 <span>Leaderboard</span>
               </a>
-            </span>
+            </span> -->
           </div>
         </div>
       </div>
@@ -194,6 +194,9 @@
   <section class="section">
     <div class="container is-max-desktop">
       <div class="content">
+        <p class="has-text-centered">
+          <img src="static/images/teaser.png" alt="Comparison among Benchmarks" style="max-width: 100%;">
+        </p>
         <p>
           We formalize <strong>audio 4D intelligence</strong> that is defined as reasoning over sound dynamics in time and 3D space, and introduce a <strong>STAR-Bench</strong> to measure it. STAR-Bench combines a <strong>Foundational Acoustic Perception</strong>setting (six attributes under absolute and relative regimes) with a <strong>Holistic Spatio-Temporal Reasoning</strong> setting that includes segment reordering for continuous and discrete processes and spatial tasks spanning static localization, multi-source relations, and dynamic trajectories.Unlike prior benchmarks where caption-only answering reduces accuracy slightly, STAR-Bench induces far larger drops (-31.5\% temporal, -35.2\% spatial), evidencing its focus on <strong>linguistically hard-to-describe cues</strong>. Evaluating 19 models reveals substantial gaps to humans and a capability hierarchy. Our STAR-Bench provides critical insights and a clear path forward for developing future models with a more robust understanding of the physical world. 
         </p>
@@ -285,7 +288,8 @@
                   </br>
                     Where does the sound seem to be coming from in terms of elevation, relative to ear level?
                   </td>
-                  <td class="has-text-left">(A) Above ear level </br>  <strong>(B) Below ear level</strong></br> (C) Unable to determine</td>
+                  <td class="has-text-left">(A) Above ear level </br>  <strong>(B) Below ear level</strong></br> (C) At ear
+                     level </br> (D)Unable to determine</td>
                 </tr>
                 <tr>
                   <td class="has-text-centered">Distance</td>
@@ -382,7 +386,7 @@
                 </tr>
                 <tr>
                   <td class="has-text-centered">Elevation</td>
-                  <td class="has-text-centered">15-30, 60-75, 90, 120, 150 (°) </td>
+                  <td class="has-text-centered">15, 90, 120, 150 (°) </td>
                   <td class="has-text-centered">
                     Audio 1:
                     <audio controls controlslist="nodownload" class="px-1" style="transform: scale(0.7)">
@@ -861,44 +865,15 @@
     <div class="container is-max-desktop">
       <div class="content has-text-centered">
         <h2 class="title is-3">Leaderboard</h2>
-        <div class="model-labels-container" style="margin-bottom: 0.75rem;">
-          <span class="tag is-light">Open-Source</span>
-          <span class="tag is-light">Open-Access</span>
-          <span class="tag is-light">Proprietary</span>
-          <span class="tag is-light">Fine-tuned</span>
+        <div>
+          Evaluation results of various models on STAR-Bench v0.5 are shown below.</br>
+          
+          (The leaderboard for v1.0 will be released soon.)
+          <p style="text-align: center;">
+            <img src="static/images/results.png" alt="Results" width="100%">
+          </p>
+         
         </div>
-
-        <div class="table-container">
-          <table class="table is-fullwidth is-striped" style="border-collapse: collapse;">
-            <thead>
-              <tr>
-                <th colspan="4" class="has-text-centered">Sound</th>
-                <th colspan="2" class="has-text-centered">Music</th>
-                <th class="has-text-centered">Speech</th>
-                <th colspan="3" class="has-text-centered">Avg</th>
-              </tr>
-              <tr>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Test-mini</th>
-                <th>Test</th>
-                <th>Test-mini</th>
-                <th>Test</th>
-                <th>Test-mini</th>
-                <th>Test</th>
-                <th>Test-mini</th>
-                <th>Test</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- leaderboard rows placeholder -->
-            </tbody>
-          </table>
-        </div>
-
-        <p class="is-size-7">
-          [Description of parsing & evaluation...]
-        </p>
       </div>
     </div>
   </section>
@@ -1292,22 +1267,6 @@
   </section>
 
   
-  <!-- <section class="section" id="error_exps">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Error Examples</h2>
-      <div id="temporal-carousel" class="carousel carousel-animated carousel-animate-slide">
-        <div class="item"><div class="box">[Temporal Slide 1]</div></div>
-        <div class="item"><div class="box">[Temporal Slide 2]</div></div>
-        <div class="item"><div class="box">[Temporal Slide 3]</div></div>
-        <div class="item"><div class="box">[Temporal Slide 4]</div></div>
-        <div class="item"><div class="box">[Temporal Slide 5]</div></div>
-      </div>
-    </div>
-  </section> -->
-
-
-  
-
   <!-- ======= Citation ======= -->
   <section class="section" id="citation">
     <div class="container is-max-desktop content">
@@ -1318,50 +1277,4 @@
     </div>
   </section>
 
-  <!-- ======= Footer =======
-  <footer class="footer">
-    <div class="container is-max-desktop">
-      <div class="content has-text-centered">
-        <p class="is-size-7">© 2025 STAR-Bench Team</p>
-      </div>
-    </div>
-  </footer> -->
-
-  <!-- ======= Minimal Carousel Init =======
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!window.bulmaCarousel) {
-        console.error('bulmaCarousel not found. Check script includes.');
-        return;
-      }
-      // Foundational (2 slides)
-      bulmaCarousel.attach('#fap-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        navigation: true,
-        pagination: true,
-        loop: false,
-        autoplay: false
-      });
-      // Holistic - Temporal (5 slides)
-      bulmaCarousel.attach('#temporal-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        navigation: true,
-        pagination: true,
-        loop: false,
-        autoplay: false
-      });
-      // Holistic - Spatial (3 slides)
-      bulmaCarousel.attach('#spatial-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        navigation: true,
-        pagination: true,
-        loop: false,
-        autoplay: false
-      });
-    });
-  </script>
-</body>
-</html> -->
+ 
