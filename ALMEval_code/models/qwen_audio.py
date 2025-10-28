@@ -43,7 +43,7 @@ class Qwen2AudioInstruct(BaseModel):
         inputs = inputs.to(self.model.device).to(self.model.dtype)
 
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
 
         with torch.no_grad():

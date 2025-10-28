@@ -1,9 +1,11 @@
+import sys
 import torch
 from .base import BaseModel
+import os
 
 
-class DeSTA25-Audio(BaseModel):
-    NAME = 'DeSTA2.5-Audio-Llama-3.1-8B'
+class DeSTA25_Audio(BaseModel):
+    NAME = 'desta'
     def __init__(self, model_path='DeSTA-ntu/DeSTA2.5-Audio-Llama-3.1-8B', model_folder='./DeSTA2.5-Audio', **kwargs):
         assert (model_path is not None) and (model_folder is not None)
         abs_model_folder= os.path.abspath(model_folder)
@@ -42,7 +44,7 @@ class DeSTA25-Audio(BaseModel):
         print(f'messages: {messages}')
 
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
 
         with torch.no_grad():

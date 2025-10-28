@@ -38,7 +38,7 @@ class StepAudio2(BaseModel):
         print(f'messages: {messages}')
 
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
         with torch.no_grad():
             tokens, output, _ = self.model(messages, max_new_tokens=max_new_tokens, num_beams=2)

@@ -1,9 +1,10 @@
 import torch
-import sys
 from .base import BaseModel
+import os
+import sys
 
 class KimiAudioInstruct(BaseModel):
-    NAME = 'Kimi-Audio-7B-Instruct'
+    NAME = 'kimi'
     def __init__(self, model_path='moonshotai/Kimi-Audio-7B-Instruct', model_folder='./Kimi-Audio', **kwargs):
         assert (model_path is not None) and (model_folder is not None)
         abs_model_folder= os.path.abspath(model_folder)
@@ -20,7 +21,7 @@ class KimiAudioInstruct(BaseModel):
     def generate_inner(self, msgs):
         meta = msgs.get('meta', None)
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
 
         sampling_params = {

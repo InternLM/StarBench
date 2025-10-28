@@ -40,7 +40,7 @@ class Phi4Multimodal(BaseModel):
         
         print(f'text query: {text_query}')
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
 
         inputs = processor(text=prompt, audios=audios, return_tensors='pt').to(self.model.device)

@@ -5,7 +5,7 @@ from .base import BaseModel
 
 
 class MiDashengLM(BaseModel):
-    NAME = 'midashenglm-7b'
+    NAME = 'midashenglm'
     def __init__(self, model_path='mispeech/midashenglm-7b', **kwargs):
         assert model_path is not None
         self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True, device_map="cuda").eval()
@@ -39,7 +39,7 @@ class MiDashengLM(BaseModel):
                 },
             ]
 
-        print_once(f'messages: {messages}')
+        print(f'messages: {messages}')
 
         model_inputs = self.processor.apply_chat_template(
                 messages,

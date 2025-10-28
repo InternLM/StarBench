@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <h1 align="center">
     <div style="display: flex; align-items: center; justify-content: center;">
       <img src="assets/4d_logo.png" alt="logo" height="100" style="margin-right: 12px;">
@@ -7,7 +7,7 @@
       </div>
     </div>
   </h1>
-    <p align="center">
+  <p align="center">
     <a href="https://scholar.google.com/citations?user=iELd-Q0AAAAJ"><strong>Zihan Liu<sup>*</sup></strong></a>
     ·
     <a href="https://scholar.google.com/citations?user=mXSpi2kAAAAJ&hl=zh-CN"><strong>Zhikang Niu<sup>*</sup></strong></a>
@@ -35,31 +35,44 @@
      <a href="https://myownskyw7.github.io/"><strong>Jiaqi Wang<sup>&dagger;</sup></strong></a>
   </p>
   <p align="center" style="font-size: 1em; margin-top: -1em"> <sup>*</sup>  Equal Contribution. <sup>&dagger;</sup>Corresponding authors. </p>
-<p align="center" style="font-size: 1.2em; margin-top: 0.5em">
-  📖<a href="">arXiv</a> |
-  🌐<a href="">Homepage</a>
- | 🤗<a href="https://huggingface.co/datasets/internlm/Spark-Data">Dataset</a>
-</p> 
-<div align="center"></div>
+  <p align="center" style="font-size: 1.2em; margin-top: 0.5em">
+    📖<a href="">arXiv</a> |
+    🌐<a href="https://internlm.github.io/StarBench/">Homepage</a>
+  | 🤗<a href="https://huggingface.co/datasets/internlm/STAR-Bench">Dataset</a>
+  </p> 
+</div>
 
 
 
 ## 📢 News
-- 🚀 [09/30/2025] We release STAR-Bench repository and homepage.
+- 🚀 [10/28/2025] We have released the STAR-Bench repository and official homepage.
+- 🚀 [10/28/2025] STAR-Bench v1.0 is now available on [🤗HuggingFace](https://huggingface.co/datasets/internlm/STAR-Bench)!
+    
+    Compared with v0.5 (introduced in our arXiv paper), v1.0 features revised and refined Questions & Answers for improved clarity and quality for spatial reasoning task. 
+    📌 Please cite this version (v1.0) when reporting results going forward.
+    The leaderboard will be updated soon.
+     <!-- Additionally，robustness runs are now uniformly set to three for every task (previously, they varied by task). -->
 
 
 ## 🌈Overview
+
 We formalize <strong>audio 4D intelligence</strong> that is defined as reasoning over sound dynamics in time and 3D space, and introduce a <strong>STAR-Bench</strong> to measure it. STAR-Bench combines a <strong>Foundational Acoustic Perception</strong>setting (six attributes under absolute and relative regimes) with a <strong>Holistic Spatio-Temporal Reasoning</strong> setting that includes segment reordering for continuous and discrete processes and spatial tasks spanning static localization, multi-source relations, and dynamic trajectories.
-Unlike prior benchmarks where caption-only answering reduces accuracy slightly, STAR-Bench induces far larger drops (-31.5\% temporal, -35.2\% spatial), evidencing its focus on <strong>linguistically hard-to-describe cues</strong>. Evaluating 19 models reveals substantial gaps to humans and a capability hierarchy. Our STAR-Bench provides critical insights and a clear path forward for developing future models with a more robust understanding of the physical world. Benchmark examples are illustrated below.
+<p style="text-align: center;"> 
+  <img src="assets/teaser.png" alt="teaser" width="100%"> 
+</p>
+Unlike prior benchmarks where caption-only answering reduces accuracy slightly, STAR-Bench induces far larger drops (-31.5\% temporal, -35.2\% spatial), evidencing its focus on <strong>linguistically hard-to-describe cues</strong>. 
+Evaluating 19 models reveals substantial gaps to humans and a capability hierarchy. Our STAR-Bench provides critical insights and a clear path forward for developing future models with a more robust understanding of the physical world. 
+
+Benchmark examples are illustrated below. You can also visit the [homepage](https://internlm.github.io/StarBench/) for a more intuitive overview.
 </p>
 <p style="text-align: center;"> 
   <img src="assets/bench_examples.png" alt="STAR-Bench Examples" width="100%"> 
 </p>
   
-A comparative overview of our benchmark against other representative audio benchmarks is shown below.
+<!-- A comparative overview of our benchmark against other representative audio benchmarks is shown below.
 <p style="text-align: center;"> 
 <img src="assets/bench_compare.png" alt="Comparison among Benchmarks" width="100%"> 
-</p> 
+</p>  -->
 
 
 
@@ -67,7 +80,8 @@ A comparative overview of our benchmark against other representative audio bench
 
 
 ## 📊Results and Analysis
-Evaluation results of various models on STAR-Bench:
+Evaluation results of various models on STAR-Bench v0.5 are shown below.
+The leaderboard for v1.0 will be released soon.
 <p style="text-align: center;">
   <img src="assets/results.png" alt="Results" width="100%">
 </p>
@@ -95,9 +109,109 @@ For the holistic spatio-temporal reasoning task, the curation process comprises 
   <img src="assets/pipeline.png" alt="pipeline" width="90%"> 
 </p>
 
-## 🛠️  Test Your Model ！
+## 🛠️ Test Your Model!
+The `ALMEval_code/` is partially adapted from [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) and [Kimi-Audio-Evalkit](https://github.com/MoonshotAI/Kimi-Audio-Evalkit).  
+It provides a unified evaluation pipeline for multimodal large models on **STAR-Bench**.
 
 
+**Step 1: Prepare Environment**
+
+```bash
+git clone https://github.com/InternLM/StarBench.git
+cd StarBench
+conda activate starbench python==3.10.0
+pip install -r requirements.txt
+cd ALMEval_code
+```
+
+**Step 2: Get STAR-Bench v1.0 Dataset**
+
+Download STAR-Bench v1.0 dataset from [HuggingFace]()
+```bash
+huggingface-cli download --repo-type dataset --resume-download <repo_name> --local-dir your_local_data_dir 
+```
+
+**Step 3: Set Up Your Model for Evaluation**
+
+Currently supported models include: `Qwen2.5-Omni`, `Qwen2-Audio-Instruct`, `DeSTA2.5-Audio`, `Phi4-MM`, `Kimi-Audio`, `MiDashengLM`, `Step-Audio-2-mini`, `Gemma-3n-E4B-it`, `Ming-Lite-Omni-1.5`,`Xiaomi-MiMo-Audio`,`MiniCPM-O-v2.6`,`Audio Flamingo 3`, `Gemini` and `GPT-4o Audio`.
+
+To integrate a new model, create a new file `yourmodel.py` under the `models/` directory and implement the function generate_inner().
+
+✅ Example: generate_inner()
+```
+def generate_inner(self, msg):
+    """
+    Args:
+        msg: dict, input format as below
+    """
+    msg = {
+        "meta": {
+            "id": ...,
+            "task": ...,
+            "category": ...,
+            "sub-category": ...,
+            "options": ...,
+            "answer": ...,
+            "answer_letter": ...,
+            "rotate_id": ...,
+            "seed": ...
+        },
+        "prompts": [
+            {"type": "text", "value": "xxxx"},
+            {"type": "audio", "value": "audio1.wav"},
+            {"type": "text", "value": "xxxx"},
+            {"type": "audio", "value": "audio2.wav"},
+            ...
+        ]
+    }
+    # Return the model's textual response
+    return "your model output here"
+```
+  
+**Step 4: Configure Model Settings**
+
+Modify the configuration file: `/models/model.yaml`.
+
+For existing models, you may need to update parameters such as `model_path` to match your local model weight path.
+
+To add a new model variant, follow these steps:
+  1. Create a new top-level key for your alias (e.g., 'my_model_variant:').
+  2. Set 'base_model' to the `NAME` attribute of the corresponding Python class.
+  3. Add any necessary arguments for the class's `__init__` method under `init_args`.
+
+Example:
+```
+qwen25-omni:
+  base_model: qwen25-omni
+  init_args:
+    model_path: your_model_weight_path_here
+```
+
+**Step 5: Run Evaluation**
+
+Run the following command:
+```
+python ./run.py \
+  --model qwen25-omni \
+  --data starbench_default \
+  --dataset_root your_local_data_dir  \
+  --work-dir ./eval_results
+```
+
+Evaluation results will be automatically saved to the ./eval_results directory.
+
+You can also evaluate specific subtasks or their combinations by modifying the `--data` argument.
+The full list of available task names can be found in
+`ALMEval_code/datasets/__init__.py.`
+
+Example: Evaluate only the temporal reasoning and spatial reasoning tasks:
+```
+python ./run.py \
+  --model qwen25-omni \
+  --data tr sr \
+  --dataset_root your_local_data_dir  \
+  --work-dir ./eval_results
+```
 
 ## ✒️Citation
 ```
@@ -108,7 +222,7 @@ TBD
 ![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg) ![Data License](https://img.shields.io/badge/Data%20License-CC%20By%20NC%204.0-red.svg) **Usage and License Notices**: The data and code are intended and licensed for research use only.
 
 ## Acknowledgement
-We sincerely thank <a href="https://www.molardata.com/" target="_blank">MolarData</a> for providing the platform that supported our data annotation, verification, and review processes.
+We sincerely thank <a href="2077ai.com" target="_blank">2077AI</a> for providing the platform that supported our data annotation, verification, and review processes.
 
 
 

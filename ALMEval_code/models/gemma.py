@@ -45,7 +45,7 @@ class Gemma3n(BaseModel):
         input_len = inputs["input_ids"].shape[-1]
 
         max_new_tokens = 256
-        if meta and 'holistic' in meta['task']: #NOTE
+        if meta and 'reasoning' in meta['task'].lower():
             max_new_tokens = 1024
         
         with torch.inference_mode():
