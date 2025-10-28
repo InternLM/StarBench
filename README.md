@@ -45,13 +45,13 @@
 
 
 ## 📢 News
-- 🚀 [10/28/2025] We have released the STAR-Bench repository and official homepage.
-- 🚀 [10/28/2025] STAR-Bench v1.0 is now available on [🤗HuggingFace](https://huggingface.co/datasets/internlm/STAR-Bench)!
+- 🚀 [10/28/2025] We have released the STAR-Bench 🏠[repository](https://github.com/InternLM/StarBench) and 🌐[homepage](https://internlm.github.io/StarBench/).
+- 🚀 [10/28/2025] STAR-Bench v1.0 is now available on 🤗[HuggingFace](https://huggingface.co/datasets/internlm/STAR-Bench)!
     
-    Compared with v0.5 (introduced in our arXiv paper), v1.0 features revised and refined Questions & Answers for improved clarity and quality for spatial reasoning task. 
+    Compared with v0.5 (introduced in our arXiv paper), v1.0 features revised and refined Questions & Answers for improved clarity and quality for spatial tasks. 
     📌 Please cite this version (v1.0) when reporting results going forward.
     The leaderboard will be updated soon.
-     <!-- Additionally，robustness runs are now uniformly set to three for every task (previously, they varied by task). -->
+   
 
 
 ## 🌈Overview
@@ -63,7 +63,7 @@ We formalize <strong>audio 4D intelligence</strong> that is defined as reasoning
 Unlike prior benchmarks where caption-only answering reduces accuracy slightly, STAR-Bench induces far larger drops (-31.5\% temporal, -35.2\% spatial), evidencing its focus on <strong>linguistically hard-to-describe cues</strong>. 
 Evaluating 19 models reveals substantial gaps to humans and a capability hierarchy. Our STAR-Bench provides critical insights and a clear path forward for developing future models with a more robust understanding of the physical world. 
 
-Benchmark examples are illustrated below. You can also visit the [homepage](https://internlm.github.io/StarBench/) for a more intuitive overview.
+Benchmark examples are illustrated below. You can also visit the 🌐[homepage](https://internlm.github.io/StarBench/) for a more intuitive overview.
 </p>
 <p style="text-align: center;"> 
   <img src="assets/bench_examples.png" alt="STAR-Bench Examples" width="100%"> 
@@ -126,7 +126,7 @@ cd ALMEval_code
 
 **Step 2: Get STAR-Bench v1.0 Dataset**
 
-Download STAR-Bench v1.0 dataset from [HuggingFace]()
+Download STAR-Bench v1.0 dataset from 🤗[HuggingFace](https://huggingface.co/datasets/internlm/STAR-Bench)
 ```bash
 huggingface-cli download --repo-type dataset --resume-download <repo_name> --local-dir your_local_data_dir 
 ```
