@@ -1,17 +1,23 @@
 import torch
-from transformers import AutoModelForCausalLM, AutoProcessor, GenerationConfig
 from .base import BaseModel
 
 
 class Phi4Multimodal(BaseModel):
-    NAME = 'Phi-4-multimodal-instruct'
+    NAME = 'Phi4mm'
     def __init__(self, model_path='microsoft/Phi-4-multimodal-instruct', **kwargs):
         assert model_path is not None
+        try:
+            from transformers import AutoModelForCausalLM, AutoProcessor, GenerationConfig
+        except ImportError as e:
+            raise ImportError(
+                "❌ Failed to import Phi-4-multimodal-instruct dependencies.\n"
+                "Please make sure you have installed the correct transformers version"
+            ) from e
         self.processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            trust_remote_code=True, # 允许用仓库里的自定义代码
-            local_files_only=True,  # 强制只从本地加载，不联网； 若能联网可删除
+            trust_remote_code=True, # Allow execution of custom code from the model repository
+            local_files_only=True,  # Force loading from local files only; remove if online access is available
             torch_dtype='auto',
             _attn_implementation='flash_attention_2',
         ).cuda()

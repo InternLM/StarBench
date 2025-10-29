@@ -23,7 +23,7 @@ class MCQBaseDataset(Dataset):
         self.demo = False
 
 
-    def set_demo_mode(self, demo=True, limits=6):
+    def set_demo_mode(self, demo=True, limits=10):
         self.demo = demo
         if demo:
             n = len(self.data)
@@ -85,23 +85,24 @@ class MCQBaseDataset(Dataset):
         """Construct a user conversation from a data source. Currently, we only consider single-turn conversations.
         return msg:
         msg = {
-            "meta":{
-                "id": ,
-                "task": ,
-                "category":,
-                "sub-category":,
-                "options": ,
-                "answer": ,
-                "answer_letter":  ,
-                "rotate_id":  ,
-                "seed":  ,
-            }
-            "prompts":
-                [
-                    {"type": "text", "value": "xxxx"},
-                    {"type": "audio", "value": 'xxxx.wav'}
-                ]
-        }    
+            "meta": {
+                "id": ...,
+                "task": ...,
+                "category": ...,
+                "sub-category": ...,
+                "options": ...,
+                "answer": ...,
+                "answer_letter": ...,
+                "rotate_id": ...,
+            },
+            "prompts": [
+                {"type": "text", "value": "xxxx"},
+                {"type": "audio", "value": "audio1.wav"},
+                {"type": "text", "value": "xxxx"},
+                {"type": "audio", "value": "audio2.wav"},
+                ...
+            ]
+        }  
         """ 
         if isinstance(line, int):
             line = self.data[line]
@@ -130,8 +131,7 @@ class MCQBaseDataset(Dataset):
                 "answer": line['answer'] ,
                 "answer_letter": answer_letter,
                 "rotate_id": kwargs.get('rotate_id', 0),
-                "seed": kwargs.get('seed', 42),
-                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}_{kwargs.get('seed', 42)}"
+                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}"
             },
             "prompts":prompts
         }
@@ -156,7 +156,7 @@ class MCQBaseDataset(Dataset):
         return {"AA": f"{aa:.2f}%", "ACR": f"{acr:.2f}%", "total_runs": len(df), "unique_samples": df['id'].nunique()}
     
     
-    def evaluate(self, eval_file: str, robustness_runs=1, reeval=False) -> dict:
+    def evaluate(self, eval_file: str, robust_eval=True, reeval=False) -> dict:
         """
         Calculates final performance metrics (Total, by Category, by Sub-category)
         from a results file and returns a clean, serializable dictionary.
@@ -192,9 +192,13 @@ class MCQBaseDataset(Dataset):
         df = pd.read_json(eval_file, lines=True)
 
         logger.info(f"Verifying the completeness of test samples in {eval_file}")
+        if robust_eval:
+            robustness_runs = 3
+        else:
+            robustness_runs = 1 
         expected_total = len(self.data) * robustness_runs
         assert len(df) == expected_total, \
-            f"Row count mismatch: expected {expected_total}, got {len(df)}"
+            f"Row count mismatch: expected {len(self.data)} * {robustness_runs} = {expected_total}, got {len(df)}"
         counts = df['id'].value_counts()
         assert all(counts == robustness_runs), \
             f"Some ids do not have exactly {robustness_runs} runs"
@@ -216,20 +220,8 @@ class MCQBaseDataset(Dataset):
     
     def parse_multi_choice_response(self, response: str, options: list) -> str:
         """
-        根据一个优化的优先级策略，从模型生成的响应中解析出多项选择题的预测答案。
-
-        优先级顺序:
-        1. 查找由关键词引导的最后一个选项字母。
-        2. 如果没有，则依次匹配以下选项:
-            优先级2: 有特殊符号包括的选项lette, (A), <A>, [A]  NOTE 故此处强烈建议用<A>这样的格式包裹选项
-            优先级1: 匹配选项文本 
-            优先级0: 无特殊符号包裹的letter, A,B,C (易与文本中的其他单词混淆，故优先级最低)
-            若有匹配到的，则按（优先级，出现位置排列）， 即优先级最高，且出现在最后的选项
-            eg:[('<A>', 220, 0), ('<C>', 28, 1), ('<A>', 435, 1), ('<C>', 663, 1), ('<C>', 24, 2)], 最后的输出为('<C>', 24, 2    
-        3. 如果全部失败，返回默认值 'Z'。
-    
-        返回:
-            str: 解析出的选项字母 (例如 '<A>')，如果无法解析则返回 'Z'。
+        Parse the model's response and extract the predicted multiple-choice letter.
+        Returns a string like '<A>' or 'Z' (for no valid match).
         """
         letter2options ={}
         for i in range(len(options)):
@@ -239,43 +231,35 @@ class MCQBaseDataset(Dataset):
         all_choices = list(letter2options.keys())
         choices_str = "".join(all_choices)
 
-        # --- 优先级 1: 查找由关键词引导的最后一个选项字母 ---
+        # --- Priority 1: find the last explicitly mentioned choice after keywords ---
+        # e.g., "Answer: (A)", "The correct option is B", "答案是C"
         keyword_matches = []
-        # 定义关键词和选项格式的组合模式
-        # (?i) 表示不区分大小写, [\s:：]* 表示可选的空格或中英文冒号
-        # 使用 \bA\b 来确保匹配的是独立的字母，而不是单词的一部分
         keyword_pattern = re.compile(
             r"(?i)(?:answer|<answer>|solution|choice|option|correct option is|answer is|答案是|选项是)\s*[:：]*\s*"
             r"(?:"
-            # 格式1: (A), <A>, [A], {A} #NOTE 新增支持 $\\boxed{F}$， gemini-2.5-flash喜欢这种格式
-            # r"[\(\<\[]\s*([{choices}])\s*[\)\]\>]" 原来的 增加了{}
-            r"[\(\<\[\{{]\s*([{choices}])\s*[\)\]\>\}}]"
-            # 格式2: 独立的字母 A
-            r"|\b([{choices}])\b"
+            r"[\(\<\[\{{]\s*([{choices}])\s*[\)\]\>\}}]"  # pattern like (A), <A>, [A], {A}
+            r"|\b([{choices}])\b"  # standalone letter A
             r")".format(choices=choices_str)
         )
 
         for match in re.finditer(keyword_pattern, response):
-            # 选项字母可能在第一个或第二个捕获组中
             found_choice_first = match.group(1) 
             found_choice_second = match.group(2)
             if found_choice_second:
-                keyword_matches.append((found_choice_second, match.start(), 0))  # (A), <A>, [A] 的优先级比 独立的 A  高！
+                keyword_matches.append((found_choice_second, match.start(), 0)) # higher priority for bracketed forms like (A)
             if found_choice_first:
                 keyword_matches.append((found_choice_first, match.start(), 1))
                 
         if keyword_matches:
-            # 按出现位置排序，返回最后一个匹配的选项
+            # sort by type and position, return the last match
             keyword_matches.sort(key=lambda x: (x[2], x[1]))
-            # print('keyword_matches:', keyword_matches)
             return '<'+keyword_matches[-1][0]+'>'
 
-        # 优先级: 2 :(A), <A>, [A] ; 1: 选项文本匹配;  0: 独立的 A 
+        # --- Priority 2: check general patterns or option text matches ---
         standalone_matches = []
-        # 定义一个只包含选项格式的模式
         standalone_pattern = re.compile(
-            r"[\(\<\[\{{]\s*([{choices}])\s*[\)\]\>\}}]" # 格式1: (A), <A>, [A], {A} #NOTE 新增支持 $\\boxed{F}$， gemini-2.5-flash喜欢这种格式
-            r"|\b([{choices}])\b".format(choices=choices_str) # 独立的 A
+            r"[\(\<\[\{{]\s*([{choices}])\s*[\)\]\>\}}]" # pattern like (A), <A>, [A], {A}
+            r"|\b([{choices}])\b".format(choices=choices_str) # standalone letter A
         )
 
         for match in re.finditer(standalone_pattern, response):
@@ -285,46 +269,28 @@ class MCQBaseDataset(Dataset):
                 standalone_matches.append(('<'+found_choice_first+'>', match.start(), 2))
             if found_choice_second:
                 standalone_matches.append(('<'+found_choice_second+'>', match.start(), 0))  
-            
+        # also match by full option text    
         if len(response.split()) > 2:
             for choice_letter, choice_text in letter2options.items():
                 pattern = re.compile(rf'(?<![A-Za-z]){re.escape(choice_text)}(?![A-Za-z])', re.IGNORECASE)
                 for match in re.finditer(pattern, response):
                     standalone_matches.append(('<'+choice_letter+'>', match.start(), 1))
 
-                # # 使用 re.escape 来安全地匹配可能包含特殊字符的文本，并忽略大小写
-                # for match in re.finditer(re.escape(choice_text), response, re.IGNORECASE):
-                #     standalone_matches.append(('<'+choice_letter+'>', match.start(), 1))
-        
         if standalone_matches:
-            # 按出现位置排序，返回最后一个匹配的选项
-            standalone_matches.sort(key=lambda x: (x[2], x[1])) # 先按优先级 (0 先于 1)，再按出现位置
-            # print('standalone_matches:', standalone_matches)
+            # sort by priority and position, return the last valid choice
+            standalone_matches.sort(key=lambda x: (x[2], x[1])) 
             return standalone_matches[-1][0]
 
+        # fallback: no valid match found
         return 'Z'
-
-
-
 
 
 
 class TemporalReasoningDataset(MCQBaseDataset):
     DATASET_ALIAS="tr"
     JSON_PATH="meta_info/holistic_reasoning_temporal.json"
-
-    def _gen_sample_id(self, line):
-        #seed + hash(line['id'])
-        tid = line['id']  
-        parts = tid.split('_')
-        subc  = parts[-2]           
-        subid = int(parts[-1])
-        sub_tasks = ["OSM", "ISSE", "TAO", "DSS", "ETC"]
-        sub_task_id = sub_tasks.index(subc)
-        compound_seed = sub_task_id*1000+ subid
-        return compound_seed
     
-    def _perm_by_roundrobin(self, seed: int, tid: str) -> list[int]:
+    def _perm_by_roundrobin(self, rotate_id: int, tid: str) -> list[int]:
         PERMS_123 = [
             [1,2,3],
             [1,3,2],
@@ -338,26 +304,19 @@ class TemporalReasoningDataset(MCQBaseDataset):
         subc  = parts[-2]
         subid = int(parts[-1])
 
-        offset = (seed % 6 + SUB_TASKS.index(subc)) % 6
+        offset = (rotate_id % 6 + SUB_TASKS.index(subc)) % 6
         idx = (subid + offset) % 6
         return PERMS_123[idx]
 
-    def _prepare_options_and_audios(self, line: dict, seed: int = 42, **kwargs) -> tuple:
-        """shuffles audio paths based on a seed and determines the
-        correct answer from the static list of text options.
+    def _prepare_options_and_audios(self, line: dict, rotate_id: int = 0, **kwargs) -> tuple:
+        """shuffles audio paths and determines the
+        correct answer from the list of text options.
         """
         options = line['options']
-    
-        # compound_seed = seed + self._gen_sample_id(line)   #hash(line['id'])
-        # rng = random.Random(compound_seed)
-        # original = [1, 2, 3]
-        # shuffled = original.copy()
-        # rng.shuffle(shuffled)
         original = [1, 2, 3]
-        shuffled = self._perm_by_roundrobin(seed, line['id'])
+        shuffled = self._perm_by_roundrobin(rotate_id, line['id'])
         order_map = {str(shuffled[i-1]): i for i in original}
         correct_order = [order_map[str(k)] for k in original]
-        # correct_order_str ='-'.join( [str(c) for c in correct_order])
         answer =' -> '.join( [f"clip {c}" for c in correct_order])
         shuffled_seg_order = '-'.join([str(c) for c in shuffled])
         audio_paths = []
@@ -410,8 +369,7 @@ class TemporalReasoningDataset(MCQBaseDataset):
                 "answer_letter": answer_letter,
                 "shuffled_seg_order":shuffled_seg_order,
                 "rotate_id": kwargs.get('rotate_id', 0),
-                "seed": kwargs.get('seed', 42),
-                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}_{kwargs.get('seed', 42)}",
+                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}",
             },
             "prompts":prompts
         }
@@ -510,28 +468,20 @@ class SpatialReasoningChannelwiseDataset(SpatialReasoningDataset):
         return msg
        
        
-class PerceptionSpatialDataset(RotationBasedDataset):
-    DATASET_ALIAS = "pc_sp"
-    JSON_PATH = "meta_info/foundation_perception_spatial.json"
 
-class PerceptionNonSpatialDataset(RotationBasedDataset):
-    DATASET_ALIAS = "pc_nsp"
-    JSON_PATH = "meta_info/foundation_perception_nonspatial.json"
 
 class PerceptionDataset(RotationBasedDataset):
     DATASET_ALIAS = "pc"
-    JSON_PATH = "meta_info/foundation_perception_total.json"
+    JSON_PATH = "meta_info/foundation_perception.json"
 
 
-    def evaluate(self, eval_file: str, robustness_runs=1, reeval=False) -> dict:
+    def evaluate(self, eval_file: str, robust_eval=True, reeval=False) -> dict:
         """
         Calculates final performance metrics (Total, by Category, by Sub-category)
         from a results file and returns a clean, serializable dictionary.
         """
         if not os.path.exists(eval_file) or os.path.getsize(eval_file) == 0:
             return {"error": f"Evaluation file not found or is empty: {eval_file}"}
-        
-        
         
         if reeval:
             tmp_path = eval_file + ".tmp"
@@ -560,22 +510,29 @@ class PerceptionDataset(RotationBasedDataset):
            
         df = pd.read_json(eval_file, lines=True)
 
+        # logger.info(f"Verifying the completeness of test samples in {eval_file}")
+        # expected_total = len(self.data) * robustness_runs
+        # assert len(df) == expected_total, \
+        #     f"Row count mismatch: expected {expected_total}, got {len(df)}"
+        # counts = df['id'].value_counts()
+        # assert all(counts == robustness_runs), \
+        #     f"Some ids do not have exactly {robustness_runs} runs"
+
         logger.info(f"Verifying the completeness of test samples in {eval_file}")
-        expected_total = len(self.data) * robustness_runs
-        assert len(df) == expected_total, \
-            f"Row count mismatch: expected {expected_total}, got {len(df)}"
+        id2nopts = {d['id']: len(d['options']) for d in self.data}
+        expected_total = sum(id2nopts.values())
+        assert len(df) == expected_total, f"Row count mismatch: expected {expected_total}, got {len(df)}"
         counts = df['id'].value_counts()
-        assert all(counts == robustness_runs), \
-            f"Some ids do not have exactly {robustness_runs} runs"
+        wrong = [i for i, c in counts.items() if c != id2nopts.get(i, -1)]
+        assert not wrong, f"Some ids do not have exactly expected runs: {wrong}"
 
         # ----------------------- By Sub-category -----------------------------
-        # 要求：sub-category 必不为空
         by_subcat = {
             str(sub): self._calculate_metrics(g)   # {"AA":"..%","ACR":"..%","total_runs":..,"unique_samples":..}
             for sub, g in df.groupby('sub-category')
         }
 
-        # 把各 sub-cat 的 AA/ACR 转为 float，便于做宏平均
+        # Macro Average
         def pct2float(x):
             return float(x[:-1]) if isinstance(x, str) and x.endswith('%') else float(x)
 
@@ -624,8 +581,13 @@ class PerceptionDataset(RotationBasedDataset):
         }
 
 
-    
+class PerceptionSpatialDataset(PerceptionDataset):
+    DATASET_ALIAS = "pc_sp"
+    JSON_PATH = "meta_info/foundation_perception_spatial.json"
 
+class PerceptionNonSpatialDataset(PerceptionDataset):
+    DATASET_ALIAS = "pc_nsp"
+    JSON_PATH = "meta_info/foundation_perception_nonspatial.json"
 
 
     

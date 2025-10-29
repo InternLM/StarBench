@@ -4,7 +4,7 @@ from .base import BaseModel
 
 
 class StepAudio2(BaseModel):
-    NAME = 'Step-Audio-2-mini'
+    NAME = 'step-audio2'
     def __init__(self, model_path='stepfun-ai/Step-Audio-2-mini', model_folder='./Step-Audio2', **kwargs):
         assert (model_path is not None) and (model_folder is not None)
         abs_model_folder= os.path.abspath(model_folder)

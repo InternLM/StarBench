@@ -133,7 +133,8 @@ huggingface-cli download --repo-type dataset --resume-download <repo_name> --loc
 
 **Step 3: Set Up Your Model for Evaluation**
 
-Currently supported models include: `Qwen2.5-Omni`, `Qwen2-Audio-Instruct`, `DeSTA2.5-Audio`, `Phi4-MM`, `Kimi-Audio`, `MiDashengLM`, `Step-Audio-2-mini`, `Gemma-3n-E4B-it`, `Ming-Lite-Omni-1.5`,`Xiaomi-MiMo-Audio`,`MiniCPM-O-v2.6`,`Audio Flamingo 3`, `Gemini` and `GPT-4o Audio`.
+Currently supported models include: `Qwen2.5-Omni`, `Qwen2-Audio-Instruct`, `DeSTA2.5-Audio`, `Phi4-MM`, `Kimi-Audio`, `MiDashengLM`, `Step-Audio-2-mini`, `Gemma-3n-E4B-it`, `Gemini` and `GPT-4o Audio`.
+<!-- `Ming-Lite-Omni-1.5`,`Xiaomi-MiMo-Audio`,`MiniCPM-O-v2.6`,`Audio Flamingo 3`, -->
 
 To integrate a new model, create a new file `yourmodel.py` under the `models/` directory and implement the function generate_inner().
 
@@ -154,7 +155,6 @@ def generate_inner(self, msg):
             "answer": ...,
             "answer_letter": ...,
             "rotate_id": ...,
-            "seed": ...
         },
         "prompts": [
             {"type": "text", "value": "xxxx"},

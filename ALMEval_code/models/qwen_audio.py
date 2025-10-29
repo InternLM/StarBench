@@ -1,13 +1,20 @@
 import torch
-from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
+
 from .base import BaseModel
 import librosa
 
 
 class Qwen2AudioInstruct(BaseModel):
-    NAME = 'Qwen2-Audio-7B-Instruct'
+    NAME = 'qwen2-audio'
     def __init__(self, model_path='Qwen/Qwen2-Audio-7B-Instruct', **kwargs):
         assert model_path is not None
+        try:
+            from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
+        except ImportError as e:
+            raise ImportError(
+                "❌ Failed to import Qwen2-Audio dependencies.\n"
+                "Please make sure you have installed the correct transformers version"
+            ) from e
         self.model = Qwen2AudioForConditionalGeneration.from_pretrained(model_path, device_map='cuda').eval()
         self.processor = AutoProcessor.from_pretrained(model_path)
         torch.cuda.empty_cache() 

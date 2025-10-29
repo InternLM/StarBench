@@ -1,12 +1,19 @@
 import torch
-from transformers import AutoProcessor, Gemma3nForConditionalGeneration
 from .base import BaseModel
 
 
 class Gemma3n(BaseModel):
-    NAME = 'gemma-3n-E4B-it'
+    NAME = 'gemma3n'
     def __init__(self, model_path='google/gemma-3n-E4B-it', **kwargs):
         assert model_path is not None
+        try:
+            from transformers import AutoProcessor, Gemma3nForConditionalGeneration
+        except ImportError as e:
+            raise ImportError(
+                "❌ Failed to import Gemma3n dependencies.\n"
+                "Please make sure you have installed the correct transformers version"
+            ) from e
+
         self.model =Gemma3nForConditionalGeneration.from_pretrained(model_path , device_map="cuda", torch_dtype=torch.bfloat16,).eval()
         self.processor = AutoProcessor.from_pretrained(model_path)
         torch.cuda.empty_cache() 
