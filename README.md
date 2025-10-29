@@ -36,7 +36,7 @@
   </p>
   <p align="center" style="font-size: 1em; margin-top: -1em"> <sup>*</sup>  Equal Contribution. <sup>&dagger;</sup>Corresponding authors. </p>
   <p align="center" style="font-size: 1.2em; margin-top: 0.5em">
-    📖<a href="">arXiv</a> |
+    📖<a href="https://arxiv.org/abs/2510.24693">arXiv</a> |
     🌐<a href="https://internlm.github.io/StarBench/">Homepage</a>
   | 🤗<a href="https://huggingface.co/datasets/internlm/STAR-Bench">Dataset</a>
   </p> 
@@ -215,7 +215,12 @@ python ./run.py \
 
 ## ✒️Citation
 ```
-TBD
+@article{liu2025starbench,
+  title={STAR-Bench: Probing Deep Spatio-Temporal Reasoning as Audio 4D Intelligence}, 
+  author={Liu, Zihan and Niu, Zhikang and Xiao, Qiuyang and Zheng, Zhisheng and Yuan, Ruoqi and Zang, Yuhang and Cao, Yuhang and Dong, Xiaoyi and Liang, Jianze and Chen, Xie and Sun, Leilei and Lin, Dahua and Wang, Jiaqi},
+  journal={arXiv preprint arXiv:2510.24693},
+  year={2025}
+}
 ```
 
 ## 📄 License
