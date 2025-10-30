@@ -131,7 +131,7 @@ class MCQBaseDataset(Dataset):
                 "answer": line['answer'] ,
                 "answer_letter": answer_letter,
                 "rotate_id": kwargs.get('rotate_id', 0),
-                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}"
+                # "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}"
             },
             "prompts":prompts
         }
@@ -369,7 +369,7 @@ class TemporalReasoningDataset(MCQBaseDataset):
                 "answer_letter": answer_letter,
                 "shuffled_seg_order":shuffled_seg_order,
                 "rotate_id": kwargs.get('rotate_id', 0),
-                "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}",
+                # "unique_id": f"{line['id']}@{kwargs.get('rotate_id', 0)}",
             },
             "prompts":prompts
         }

@@ -208,6 +208,5 @@ __marimo__/
 
 ALMEval_code/eval_results*
 ALMEval_code/run_*
-ALMEval_code/run*
-ALMEval_code/models/models.yaml
+ALMEval_code/models/models_local.yaml
 ALMEval_code/datasets/starbench_old.py

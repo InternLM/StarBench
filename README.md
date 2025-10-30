@@ -119,8 +119,17 @@ It provides a unified evaluation pipeline for multimodal large models on **STAR-
 ```bash
 git clone https://github.com/InternLM/StarBench.git
 cd StarBench
-conda activate starbench python==3.10.0
+conda create -n starbench python==3.10.0
+conda activate starbench
+
+# Install PyTorch (choose the correct CUDA version for your system)
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+pip install transformers==4.57.1
+pip install accelerate
+#NOTE! For more packages, see requirements.txt!!!
 pip install -r requirements.txt
+# (Optional) Install Flash-Attention for faster inference
+pip install flash-attn --no-build-isolation
 cd ALMEval_code
 ```
 
@@ -128,7 +137,8 @@ cd ALMEval_code
 
 Download STAR-Bench v1.0 dataset from 🤗[HuggingFace](https://huggingface.co/datasets/internlm/STAR-Bench)
 ```bash
-huggingface-cli download --repo-type dataset --resume-download <repo_name> --local-dir your_local_data_dir 
+huggingface-cli download --repo-type dataset --resume-download internlm/STAR-Bench --local-dir your_local_data_dir 
+
 ```
 
 **Step 3: Set Up Your Model for Evaluation**
@@ -190,8 +200,17 @@ qwen25-omni:
 **Step 5: Run Evaluation**
 
 Run the following command:
-```
+
+```bash
+#Single GPU
 python ./run.py \
+  --model qwen25-omni \
+  --data starbench_default \
+  --dataset_root your_local_data_dir  \
+  --work-dir ./eval_results
+
+#Multi-GPU (Distributed)
+torchrun --nproc-per-node=8  ./run.py \
   --model qwen25-omni \
   --data starbench_default \
   --dataset_root your_local_data_dir  \

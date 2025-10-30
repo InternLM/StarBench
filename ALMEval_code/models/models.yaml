@@ -1,0 +1,85 @@
+# ======================================================================================
+# Model Configuration File for ALMEval
+# ======================================================================================
+#
+# This file maps user-friendly aliases (e.g., 'af3', 'af3_think') to the underlying
+# model classes and their specific initialization arguments.
+#
+# To add a new model variant:
+# 1. Create a new top-level key for your alias (e.g., 'my_model_variant:').
+# 2. Set 'base_model' to the `NAME` attribute of the corresponding Python class.
+# 3. Add any necessary arguments for the class's `__init__` method under `init_args`.
+#
+# ======================================================================================
+
+qwen25-omni:
+  base_model: qwen25-omni
+  init_args: 
+    model_path: Qwen/Qwen2.5-Omni-7B
+
+qwen3-omni:
+  base_model: qwen3-omni
+  init_args: 
+    model_path: Qwen/Qwen3-Omni-30B-A3B-Instruct
+
+qwen3-omni-think:
+  base_model: qwen3-omni
+  init_args: 
+    model_path: Qwen/Qwen3-Omni-30B-A3B-Thinking
+
+qwen2-audio:
+  base_model: qwen2-audio
+  init_args: 
+    model_path: Qwen/Qwen2-Audio-7B-Instruct
+
+step-audio2-mini:
+  base_model: step-audio2
+  init_args: 
+    model_path: stepfun-ai/Step-Audio-2-mini
+    model_folder: ../LALM_zoo/Step-Audio2
+
+midashenglm:
+  base_model: midashenglm
+  init_args: 
+    model_path: mispeech/midashenglm-7b
+  
+kimi:
+  base_model: kimi
+  init_args: 
+    model_path: moonshotai/Kimi-Audio-7B-Instruct
+    model_folder: ../LALM_zoo/Kimi-Audio
+
+desta25:
+  base_model: desta
+  init_args: 
+    model_path: DeSTA-ntu/DeSTA2.5-Audio-Llama-3.1-8B
+    model_folder: ../LALM_zoo/DeSTA2.5-Audio
+
+
+gemma3n:
+  base_model: gemma3n
+  init_args: 
+    model_path: google/gemma-3n-E4B-it
+
+
+gemini-2.5-flash:
+  base_model: gemini
+  init_args:
+    model_id: gemini-2.5-flash
+    base_url: https://xxxxx
+    api_key: xxxxxxx
+
+gemini-2.5-pro:
+  base_model: gemini
+  init_args:
+    model_id: gemini-2.5-pro
+    base_url: https://xxxxx
+    api_key: xxxxxxx
+
+
+gpt-4o-audio:
+  base_model: gemini
+  init_args:
+    model_id: gpt-4o-audio-preview
+    base_url: https://xxxxx
+    api_key: xxxxxxx

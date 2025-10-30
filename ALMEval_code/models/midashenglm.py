@@ -1,6 +1,5 @@
 import random
 import torch
-from transformers import AutoModelForCausalLM, AutoProcessor, AutoTokenizer
 from .base import BaseModel
 
 
@@ -8,6 +7,12 @@ class MiDashengLM(BaseModel):
     NAME = 'midashenglm'
     def __init__(self, model_path='mispeech/midashenglm-7b', **kwargs):
         assert model_path is not None
+        try:
+            from transformers import AutoModelForCausalLM, AutoProcessor, AutoTokenizer
+        except ImportError as e:
+            raise ImportError( "❌ Failed to import midashenglm dependencies.\n"
+                "Please make sure you have installed the correct transformers version"
+            ) from e
         self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True, device_map="cuda").eval()
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         self.processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)

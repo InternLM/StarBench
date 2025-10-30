@@ -1,0 +1,43 @@
+# =====================================================================
+# StarBench Multi-Model Evaluation Environment
+# Compatible with Qwen-Omni, Qwen-Audio, Desta-25, MiDashengLM, Gemma-3N, etc.
+# 
+# Note:
+#   - Different models may require slightly different environments.
+#   - For some models (e.g., phi4-mm), you may need to adjust
+#       • transformers version (< 0.50)
+#       • peft version (use 0.13.2)
+# =====================================================================
+
+# torch==2.7.1+cu126
+# torchaudio==2.7.1+cu126
+# torchvision==0.22.1+cu126
+# transformers==4.57.1
+accelerate==1.8.1
+huggingface-hub==0.34.4
+diffusers==0.33.0
+timm==1.0.19
+numpy==2.2.6
+pandas==2.3.0
+scipy==1.15.3
+scikit-learn==1.7.0
+tqdm==4.67.1
+loguru==0.7.3
+datasets==3.3.2
+einops==0.8.1
+sentencepiece==0.2.0
+peft==0.17.1
+trl==0.19.0
+funasr==1.2.7
+soundfile==0.13.1
+librosa==0.11.0
+whisper_normalizer==0.1.12
+ffmpy==0.6.0   
+qwen-omni-utils==0.0.8
+qwen-vl-utils==0.0.11
+openai==1.107.1
+
+
+
+
+

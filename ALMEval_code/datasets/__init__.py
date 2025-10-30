@@ -34,7 +34,7 @@ DATASET_GROUPS = {
         'sr', 'sr_ch',
         'pc_sp', 'pc_nsp'
     ],
-    "starbench_default": ['tr', 'sr', 'pc']
+    "starbench_default": ['pc', 'tr', 'sr']
 }
 
 def build_dataset(dataset_names: list, dataset_root: str) -> list:
@@ -48,15 +48,20 @@ def build_dataset(dataset_names: list, dataset_root: str) -> list:
     Returns:
         list: A list of instantiated dataset objects.
     """
-    final_aliases = set()
+    final_aliases = []
+    seen= set()
     for name in dataset_names:
         # Handle multiple datasets joined by '+'
         sub_names = [n.strip().lower() for n in name.split('+')]
         for sub_name in sub_names:
             if sub_name in DATASET_GROUPS:
-                final_aliases.update(DATASET_GROUPS[sub_name])
-            elif sub_name in DATASET_REGISTRY:
-                final_aliases.add(sub_name)
+                for x in DATASET_GROUPS[sub_name]:
+                    if x not in seen:
+                        final_aliases.append(x)
+                        seen.add(x)
+            elif sub_name in DATASET_REGISTRY and sub_name not in seen:
+                final_aliases.append(sub_name)
+                seen.add(sub_name)
             else:
                 raise ValueError(f"Unknown dataset alias or group: '{sub_name}'")
     

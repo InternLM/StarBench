@@ -9,7 +9,13 @@ class KimiAudioInstruct(BaseModel):
         assert (model_path is not None) and (model_folder is not None)
         abs_model_folder= os.path.abspath(model_folder)
         sys.path.append(abs_model_folder)
-        from kimia_infer.api.kimia import KimiAudio
+        try:
+            from kimia_infer.api.kimia import KimiAudio
+        except ImportError as e:
+            raise ImportError(
+                "❌ Failed to import kimi dependencies.\n"
+                "Please 'pip install git+https://github.com/MoonshotAI/Kimi-Audio.git'"
+            ) from e
         # from token2wav import Token2wav
         self.model = KimiAudio(
             model_path=model_path,

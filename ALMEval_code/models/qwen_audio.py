@@ -1,5 +1,4 @@
 import torch
-
 from .base import BaseModel
 import librosa
 
