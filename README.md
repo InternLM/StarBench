@@ -246,7 +246,7 @@ python ./run.py \
 ![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg) ![Data License](https://img.shields.io/badge/Data%20License-CC%20By%20NC%204.0-red.svg) **Usage and License Notices**: The data and code are intended and licensed for research use only.
 
 ## Acknowledgement
-We sincerely thank <a href="2077ai.com" target="_blank">2077AI</a> for providing the platform that supported our data annotation, verification, and review processes.
+We sincerely thank <a href="https://www.2077ai.com/">2077AI</a> for providing the platform that supported our data annotation, verification, and review processes.
 
 
 
