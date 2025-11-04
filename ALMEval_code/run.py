@@ -1,21 +1,5 @@
-import argparse
 import os
 import json
-import torch
-import torch.distributed as dist
-from tqdm import tqdm
-import datetime
-import shutil
-from loguru import logger
-import sys
-import pandas as pd
-import glob
-from datasets import build_dataset
-from models import build_model
-from pathlib import Path
-import time
-from typing import Dict, Any, Set, List, Tuple
-import traceback
 import subprocess
 
 # GET the number of GPUs on the node without importing libs like torch
@@ -57,6 +41,23 @@ if LOCAL_WORLD_SIZE > 1 and len(GPU_LIST):
         f'MASTER_ADDR={master_addr} MASTER_PORT={master_port}',
         flush=True
     )
+
+import argparse
+from tqdm import tqdm
+import datetime
+import shutil
+from loguru import logger
+import sys
+import pandas as pd
+import glob
+from datasets import build_dataset
+from models import build_model
+from pathlib import Path
+import time
+from typing import Dict, Any, Set, List, Tuple
+import traceback
+import torch.distributed as dist
+
 
 
 def setup_logging(rank, log_dir):
@@ -436,7 +437,7 @@ def do_reeval(args):
 def main(args):
     # init_distributed(args)
     if WORLD_SIZE > 1:
-        import torch.distributed as dist
+        
         # torch.cuda.set_device(LOCAL_RANK)
         dist.init_process_group(
             backend='nccl',

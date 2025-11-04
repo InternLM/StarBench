@@ -79,7 +79,7 @@ def _load_model_configs() -> dict:
     Returns:
         A dictionary containing the configurations for all model aliases.
     """
-    config_path = os.path.join(os.path.dirname(__file__), 'models.yaml')
+    config_path = os.path.join(os.path.dirname(__file__), 'models.yaml') 
     if not os.path.exists(config_path):
         raise FileNotFoundError(
             "Configuration file 'models.yaml' not found. Please create it in the "
