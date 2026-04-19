@@ -2,6 +2,9 @@ from .starbench import (
     TemporalReasoningDataset,
     TemporalReasoningGivenCaptionDataset,
     TemporalReasoningGivenUncutAudioDataset,
+    TemporalReasoningSingleAudioDataset,
+    TemporalReasoningGivenCaptionSingleAudioDataset,
+    TemporalReasoningGivenUncutSingleAudioDataset,
     SpatialReasoningDataset,
     SpatialReasoningChannelwiseDataset,
     PerceptionDataset,
@@ -15,6 +18,10 @@ DATASET_REGISTRY = {
     'tr': TemporalReasoningDataset,
     'tr_cap': TemporalReasoningGivenCaptionDataset,
     'tr_uncut': TemporalReasoningGivenUncutAudioDataset,
+    # Single-audio temporal variants: 3 clips are concatenated into one audio (2s gaps).
+    'tr_single': TemporalReasoningSingleAudioDataset,  # no extra context
+    'tr_cap_single': TemporalReasoningGivenCaptionSingleAudioDataset,  # + global caption
+    'tr_uncut_single': TemporalReasoningGivenUncutSingleAudioDataset,  # + uncut reference audio
     # Spatial Reasoning
     'sr': SpatialReasoningDataset,
     'sr_ch': SpatialReasoningChannelwiseDataset,

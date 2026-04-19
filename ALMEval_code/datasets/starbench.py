@@ -9,6 +9,7 @@ from .utils import binaural2single
 import random
 from loguru import logger
 import numpy as np
+from pydub import AudioSegment
 
 class MCQBaseDataset(Dataset):
     DATASET_ALIAS = None
@@ -284,11 +285,20 @@ class MCQBaseDataset(Dataset):
         # fallback: no valid match found
         return 'Z'
 
+def merge_pydub(audio_paths, out_path, silence_sec=2.0):
+    combined = AudioSegment.empty()
+    silence = AudioSegment.silent(duration=silence_sec * 1000) # pydub用毫秒
+    
+    for path in audio_paths:
+        combined += AudioSegment.from_file(path) + silence
+    combined.export(out_path, format="wav")
+    return out_path
 
 
 class TemporalReasoningDataset(MCQBaseDataset):
     DATASET_ALIAS="tr"
     JSON_PATH="meta_info/holistic_reasoning_temporal.json"
+    MULTI_AUDIO = True
     
     def _perm_by_roundrobin(self, rotate_id: int, tid: str) -> list[int]:
         PERMS_123 = [
@@ -351,13 +361,28 @@ class TemporalReasoningDataset(MCQBaseDataset):
         prompts.extend(self._build_auxiliary_prompts(line))
 
         assert len(audio_paths) == 3, "Temporal reasoning expects 3 audio clips."
-        for i in range(len(audio_paths)):
+
+        if self.MULTI_AUDIO:
+            for i in range(len(audio_paths)):
+                prompts.extend(
+                    [
+                        {'type':'text', 'value':f'\nclip {i+1}:'},
+                        {'type':'audio', 'value': os.path.join(self.dataset_root, audio_paths[i])}
+                    ]
+                ) 
+        else:
+            rel_dir = os.path.dirname(audio_paths[0]).replace('starbench_audios/', 'starbench_audios_cat2sec/')
+            audio_abs_paths = [os.path.join(self.dataset_root, audio_paths[i]) for i in range(len(audio_paths))]
+            concat_path = os.path.join(self.dataset_root, rel_dir, f"{shuffled_seg_order}.wav")
+            os.makedirs(os.path.dirname(concat_path), exist_ok=True)
+            merge_pydub(audio_abs_paths, concat_path)
             prompts.extend(
                 [
-                    {'type':'text', 'value':f'\nclip {i+1}:'},
-                    {'type':'audio', 'value': os.path.join(self.dataset_root, audio_paths[i])}
+                    {'type':'text', 'value':"Below are three audio segments (clip 1, clip 2, and clip 3) concatenated with a 2-second gap between them."},
+                    {'type':'audio', 'value': concat_path}
                 ]
-            ) 
+            )
+
         msg = {
             "meta":{
                 "id": line['id'],
@@ -379,6 +404,8 @@ class TemporalReasoningDataset(MCQBaseDataset):
 class TemporalReasoningGivenCaptionDataset(TemporalReasoningDataset):
     DATASET_ALIAS = "tr_cap"
     JSON_PATH = "meta_info/holistic_reasoning_temporal.json" 
+    MULTI_AUDIO = True
+
     def _build_auxiliary_prompts(self, line: dict) -> list:
         """Overrides the hook to add a caption."""
         caption_prompt = f"Here is a caption that describes the full, uncut audio scene to help you reconstruct the original context: {line['global_caption']}\n Below are 3 audio clips:\n"
@@ -395,6 +422,7 @@ class TemporalReasoningGivenCaptionDataset(TemporalReasoningDataset):
 class TemporalReasoningGivenUncutAudioDataset(TemporalReasoningDataset):
     DATASET_ALIAS = "tr_uncut"
     JSON_PATH = "meta_info/holistic_reasoning_temporal.json"
+    MULTI_AUDIO = True
 
     def _build_auxiliary_prompts(self, line: dict) -> list:
         """Overrides the hook to add the uncut audio."""
@@ -408,6 +436,22 @@ class TemporalReasoningGivenUncutAudioDataset(TemporalReasoningDataset):
         msg = super().build_prompt(line, **kwargs)
         msg['meta']['given_uncut_audio'] = True
         return msg
+
+
+class TemporalReasoningSingleAudioDataset(TemporalReasoningDataset):
+    DATASET_ALIAS = "tr_single"
+    # Use one merged audio prompt (clip1+clip2+clip3 with 2s silence) instead of 3 separate clips.
+    MULTI_AUDIO = False
+
+class TemporalReasoningGivenCaptionSingleAudioDataset(TemporalReasoningGivenCaptionDataset):
+    DATASET_ALIAS = "tr_cap_single"
+    # Same as tr_single, but includes global_caption context in the prompt.
+    MULTI_AUDIO = False
+
+class TemporalReasoningGivenUncutSingleAudioDataset(TemporalReasoningGivenUncutAudioDataset):
+    DATASET_ALIAS = "tr_uncut_single"
+    # Same as tr_single, but also provides the uncut full-scene reference audio.
+    MULTI_AUDIO = False
 
 
 
@@ -598,7 +642,6 @@ class PerceptionNonSpatialDataset(PerceptionDataset):
 
 
         
-
 
 
 

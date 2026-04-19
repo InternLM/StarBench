@@ -1,6 +1,8 @@
 import os
+import tempfile
 import torch
 from .base import BaseModel
+from datasets.starbench import merge_pydub
 
 # Audio Flamingo 3 HF version, you'd better update transformers >= 5.0
 class AudioFlamingo3HF(BaseModel):
@@ -54,17 +56,33 @@ class AudioFlamingo3HF(BaseModel):
     def generate_inner(self, msgs):
         meta = msgs.get('meta', None)
         prompts = msgs.get('prompts', None)
-        content = []
+
+        # Collect text and audio items separately
+        text_parts = []
+        audio_paths = []
         for x in prompts:
             if x['type'] == 'text':
-                content.append({"type": "text", "text": x['value']})
+                text_parts.append(x['value'])
             elif x['type'] == 'audio':
-                content.append({"type": "audio", "path": x['value']})
+                audio_paths.append(x['value'])
+
+        # HF processor requires text:audio = 1:1
+        # If multiple audios, merge them into one with 2s silence gaps
+        merged_path = None
+        if len(audio_paths) > 1:
+            merged_path = tempfile.NamedTemporaryFile(suffix='.wav', delete=False).name
+            merge_pydub(audio_paths, merged_path)
+            audio_paths = [merged_path]
+
+        # Build content: all text first, then single audio
+        combined_text = "\n".join(text_parts)
         if self.thinking:
-            content.append({
-                "type": "text",
-                "text": "Please think and reason about the input audio before you respond.",
-            })
+            combined_text += "\nPlease think and reason about the input audio before you respond."
+
+        content = [
+            {"type": "text", "text": combined_text},
+            {"type": "audio", "path": audio_paths[0]},
+        ]
         messages = [{'role': 'user', 'content': content}]
 
         inputs = self.processor.apply_chat_template(
@@ -91,5 +109,8 @@ class AudioFlamingo3HF(BaseModel):
             output = self.processor.batch_decode(
                     model_output.sequences[:, inputs["input_ids"].shape[1] :], skip_special_tokens=True, clean_up_tokenization_spaces=False
                 )[0]
-        print('【audio flamingo3 output】:', output)    
+        if merged_path and os.path.exists(merged_path):
+            os.remove(merged_path)
+
+        print('【audio flamingo3 output】:', output)
         return output
